@@ -1,28 +1,26 @@
 import React from 'react';
 import './App.css';
+import {Todolist} from "./Todolist";
+import {v1} from "uuid";
+export type tasksType={
+    taskId:string
+    taskTitle:string
+    isDone:boolean
+}
 
 function App() {
+    let tasks:Array<tasksType>=[
+        {taskId:v1(),taskTitle:'HTML&CSS',isDone:true},
+        {taskId:v1(),taskTitle:'TS',isDone:false},
+        {taskId:v1(),taskTitle:'React',isDone:true},
+    ]
     return (
         <div className="App">
-            <div>
-                <h3>What to learn</h3>
-                <div>
-                    <input/>
-                    <button>+</button>
-                </div>
-                <ul>
-                    <li><input type="checkbox" checked={true}/> <span>HTML&CSS</span></li>
-                    <li><input type="checkbox" checked={true}/> <span>JS</span></li>
-                    <li><input type="checkbox" checked={false}/> <span>React</span></li>
-                </ul>
-                <div>
-                    <button>All</button>
-                    <button>Active</button>
-                    <button>Completed</button>
-                </div>
-            </div>
+          <Todolist title={'What to learn'} tasks={tasks}/>
+
         </div>
     );
 }
 
 export default App;
+
