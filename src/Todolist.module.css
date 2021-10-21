@@ -1,0 +1,15 @@
+.error {
+    color: red;
+}
+
+.errorInput {
+    border: red 1px solid;
+}
+
+.activeButton {
+    background-color: lightgreen;
+}
+
+.completedTask {
+    opacity: 0.6;
+}
