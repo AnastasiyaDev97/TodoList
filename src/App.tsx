@@ -34,7 +34,7 @@ function App() {
             {taskId: v1(), taskTitle: 'React', isDone: true}],
         [todolistId2]: [{taskId: v1(), taskTitle: 'milk', isDone: true},
             {taskId: v1(), taskTitle: 'salt', isDone: false},
-            {taskId: v1(), taskTitle: 'apples', isDone: true}],
+            {taskId: v1(), taskTitle: 'apples', isDone: false}],
     })
 
     const deleteTask = (todolistId: string, taskId: string) => {

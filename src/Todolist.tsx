@@ -3,6 +3,7 @@ import {filterValuesType, taskType} from "./App";
 import s from './Todolist.module.css'
 import {AddItemForm} from "./components/AddItemForm/AddItemForm";
 import {EditableSpan} from "./components/EditableSpan/EditableSpan";
+import {Button} from "./components/Button/Button";
 
 type TodolistPropsType = {
     todolistTitle: string
@@ -39,7 +40,7 @@ export const Todolist = (props: TodolistPropsType) => {
     return (
         <div>
             <h3><EditableSpan title={props.todolistTitle} updateTitle={props.updateTodoTitle}/>
-                <button onClick={deleteTodoHandler}>x</button>
+                <Button callback={deleteTodoHandler} title={'x'}/>
             </h3>
             <AddItemForm addItem={addTaskHandler}/>
             <ul>
@@ -55,9 +56,7 @@ export const Todolist = (props: TodolistPropsType) => {
                     }
                     return (
                         <li key={m.taskId} className={m.isDone ? s.completedTask : ''}>
-                            <button onClick={
-                                deleteTaskHandler}>x
-                            </button>
+                            <Button callback={deleteTaskHandler} title={'x'}/>
                             <input type="checkbox" checked={m.isDone} onChange={changeTaskStatusHandler}/>
                             <EditableSpan title={m.taskTitle} updateTitle={updateTaskTitleHandler}/>
                         </li>
@@ -65,14 +64,9 @@ export const Todolist = (props: TodolistPropsType) => {
                 })}
             </ul>
             <div>
-                <button onClick={changeAllFilterHandler} className={props.filter === 'all' ? s.activeButton : ''}>All
-                </button>
-                <button onClick={changeActiveFilterHandler}
-                        className={props.filter === 'active' ? s.activeButton : ''}>Active
-                </button>
-                <button onClick={changeCompletedFilterHandler}
-                        className={props.filter === 'completed' ? s.activeButton : ''}>Completed
-                </button>
+                <Button callback={changeAllFilterHandler}  title={'all'}/>
+                <Button callback={changeActiveFilterHandler}  title={'active'}/>
+                <Button callback={changeCompletedFilterHandler}  title={'completed'}/>
             </div>
         </div>
     )
