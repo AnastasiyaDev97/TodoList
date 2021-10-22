@@ -2,6 +2,8 @@
     color: red;
 }
 
-.errorInput {
-    border: red 1px solid;
+
+.wrapper {
+    display: flex;
+    align-items: center;
 }

@@ -1,17 +1,20 @@
 import s from "./AddItemForm.module.css";
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-type addItemFormPropsType={
+import { IconButton, TextField} from "@material-ui/core";
+import {AddBoxOutlined} from "@material-ui/icons";
+
+type addItemFormPropsType = {
     addItem: (title: string) => void
 }
 
-export const AddItemForm=(props:addItemFormPropsType)=>{
-    let [title, setTitle] = useState('')
-    let [error, setError] = useState('')
+export const AddItemForm = (props: addItemFormPropsType) => {
+    let [title, setTitle] = useState<string>('')
+    let [error, setError] = useState<string | null>(null)
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
         if (e.currentTarget.value.length > 0) {
-            setError('')
+            setError(null)
         }
     }
     const addTaskHandler = () => {
@@ -28,12 +31,21 @@ export const AddItemForm=(props:addItemFormPropsType)=>{
             addTaskHandler()
         }
     }
-    return(
-        <div>
-            <input value={title} onChange={onChangeHandler} onKeyPress={onKeyPressAddTaskHandler}
-                   className={error ? s.errorInput : ''}/>
-            <button onClick={addTaskHandler}>+</button>
-            {error && <div className={s.error}>{error}</div>}
+    return (
+        <div className={s.wrapper}>
+            <TextField
+                error={!!error}
+                id={error ? "outlined-error" : "standard-basic"}
+                label={error ? "Error" : "write title"}
+                onChange={onChangeHandler} onKeyPress={onKeyPressAddTaskHandler}
+                value={title}
+                size="small"
+            />
+
+            <IconButton size="small" onClick={addTaskHandler}>
+                <AddBoxOutlined style={{color: "LightGreen"}}/>
+            </IconButton>
+
         </div>
     )
 }

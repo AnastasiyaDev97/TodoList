@@ -1,14 +1,16 @@
-import s from "./Button.module.css";
+import s from './Button.module.css'
 import React from "react";
-type ButtonPropsType={
-    callback:()=>void
+import {Button} from "@material-ui/core";
 
-    title:string
+type ButtonPropsType = {
+    callback: () => void
+    title: string
 }
-export const Button=(props:ButtonPropsType)=>{
-    return(
-        <button onClick={props.callback}
-                className={(props.title==='all'||'active'||'completed')? s.btn:''}>{props.title}
-        </button>
+export const UniversalButton = (props: ButtonPropsType) => {
+    return (
+        <Button variant="text" size="small"
+                color="primary" onClick={props.callback}
+                className={s.btn}
+        >{props.title}</Button>
     )
 }

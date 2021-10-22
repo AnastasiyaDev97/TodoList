@@ -3,7 +3,9 @@ import {filterValuesType, taskType} from "./App";
 import s from './Todolist.module.css'
 import {AddItemForm} from "./components/AddItemForm/AddItemForm";
 import {EditableSpan} from "./components/EditableSpan/EditableSpan";
-import {Button} from "./components/Button/Button";
+import {UniversalButton} from "./components/Button/Button";
+import {Checkbox, IconButton} from '@material-ui/core';
+import {Delete} from '@material-ui/icons';
 
 type TodolistPropsType = {
     todolistTitle: string
@@ -40,7 +42,10 @@ export const Todolist = (props: TodolistPropsType) => {
     return (
         <div>
             <h3><EditableSpan title={props.todolistTitle} updateTitle={props.updateTodoTitle}/>
-                <Button callback={deleteTodoHandler} title={'x'}/>
+                <IconButton aria-label="delete" size="small" onClick={deleteTodoHandler}>
+                    <Delete fontSize="small"/>
+                </IconButton>
+
             </h3>
             <AddItemForm addItem={addTaskHandler}/>
             <ul>
@@ -56,17 +61,21 @@ export const Todolist = (props: TodolistPropsType) => {
                     }
                     return (
                         <li key={m.taskId} className={m.isDone ? s.completedTask : ''}>
-                            <Button callback={deleteTaskHandler} title={'x'}/>
-                            <input type="checkbox" checked={m.isDone} onChange={changeTaskStatusHandler}/>
+                            <IconButton aria-label="delete" size="small" onClick={deleteTaskHandler}>
+                                <Delete fontSize="small"/>
+                            </IconButton>
+                            <Checkbox checked={m.isDone} onChange={changeTaskStatusHandler}
+                                      color={"secondary"} size="small"/>
+                            {/*   <input type="checkbox" checked={m.isDone} onChange={changeTaskStatusHandler}/>*/}
                             <EditableSpan title={m.taskTitle} updateTitle={updateTaskTitleHandler}/>
                         </li>
                     )
                 })}
             </ul>
             <div>
-                <Button callback={changeAllFilterHandler}  title={'all'}/>
-                <Button callback={changeActiveFilterHandler}  title={'active'}/>
-                <Button callback={changeCompletedFilterHandler}  title={'completed'}/>
+                <UniversalButton callback={changeAllFilterHandler} title={'all'}/>
+                <UniversalButton callback={changeActiveFilterHandler} title={'active'}/>
+                <UniversalButton callback={changeCompletedFilterHandler} title={'completed'}/>
             </div>
         </div>
     )
