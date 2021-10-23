@@ -6,6 +6,7 @@ import {AddItemForm} from "./components/AddItemForm/AddItemForm";
 import {AppBar, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
 import {Menu} from "@material-ui/icons";
 import s from './App.module.css'
+import {changeTaskStatusAC, tasksReducer} from "./state/reducers/tasks-reducer";
 
 export type taskType = {
     taskId: string
@@ -80,7 +81,8 @@ function App() {
     const updateTodoTitle = (todolistsId: string, newTitle: string) => {
         setTodolists(todolists.map(m => m.todolistId === todolistsId ? {...m, title: newTitle} : m))
     }
-    console.log(tasks)
+
+
     return (
         <div>
             <AppBar position="static" style={{background: "SkyBlue"}} className={s.appbar}>

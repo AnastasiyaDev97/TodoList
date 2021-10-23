@@ -8,7 +8,6 @@ import {
     todolistReducer
 } from "./todolist-reducer";
 
-
 test('correct todolist should be removed', () => {
     let todolistId1 = v1();
     let todolistId2 = v1();
@@ -69,7 +68,6 @@ test('correct filter of todolist should be changed', () => {
         {todolistId: todolistId1, title: "What to learn", filter: "all"},
         {todolistId: todolistId2, title: "What to buy", filter: "all"}
     ]
-
 
     const endState = todolistReducer(startState, changeTodolistFilterAC(todolistId2, "completed"));
 
