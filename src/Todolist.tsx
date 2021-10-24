@@ -1,5 +1,5 @@
 import React from "react";
-import {filterValuesType, taskType} from "./App";
+import {filterValuesType, taskType} from "./AppWithReducer";
 import s from './Todolist.module.css'
 import {AddItemForm} from "./components/AddItemForm/AddItemForm";
 import {EditableSpan} from "./components/EditableSpan/EditableSpan";
@@ -13,7 +13,7 @@ type TodolistPropsType = {
     deleteTask: (todolistId: string, taskId: string) => void
     changeTodolistFilter: (filterValue: filterValuesType) => void
     addTask: (todolistId: string, taskTitle: string) => void
-    changeTaskStatus: (todolistId: string, taskId: string) => void
+    changeTaskStatus: (taskId: string, isDone: boolean, todolistId: string ) => void
     filter: filterValuesType
     todolistId: string
     deleteTodolist: (todolistsId: string) => void
@@ -54,7 +54,7 @@ export const Todolist = (props: TodolistPropsType) => {
                         props.deleteTask(props.todolistId, m.taskId)
                     }
                     const changeTaskStatusHandler = () => {
-                        props.changeTaskStatus(props.todolistId, m.taskId)
+                        props.changeTaskStatus(m.taskId,m.isDone,props.todolistId)
                     }
                     const updateTaskTitleHandler = (newTitle: string) => {
                         props.updateTaskTitle(props.todolistId, m.taskId, newTitle)
