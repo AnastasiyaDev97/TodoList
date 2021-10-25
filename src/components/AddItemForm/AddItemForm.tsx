@@ -1,13 +1,13 @@
 import s from "./AddItemForm.module.css";
-import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-import { IconButton, TextField} from "@material-ui/core";
+import React, {ChangeEvent, KeyboardEvent,  useState} from "react";
+import {IconButton, TextField} from "@material-ui/core";
 import {AddBoxOutlined} from "@material-ui/icons";
 
 type addItemFormPropsType = {
     addItem: (title: string) => void
 }
 
-export const AddItemForm = (props: addItemFormPropsType) => {
+export const AddItemForm = React.memo((props: addItemFormPropsType) => {
     let [title, setTitle] = useState<string>('')
     let [error, setError] = useState<string | null>(null)
 
@@ -31,6 +31,7 @@ export const AddItemForm = (props: addItemFormPropsType) => {
             addTaskHandler()
         }
     }
+    console.log('addItem')
     return (
         <div className={s.wrapper}>
             <TextField
@@ -48,4 +49,6 @@ export const AddItemForm = (props: addItemFormPropsType) => {
 
         </div>
     )
-}
+})
+
+

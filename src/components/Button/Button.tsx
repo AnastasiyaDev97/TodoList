@@ -6,11 +6,11 @@ type ButtonPropsType = {
     callback: () => void
     title: string
 }
-export const UniversalButton = (props: ButtonPropsType) => {
+export const UniversalButton = React.memo((props: ButtonPropsType) => {
     return (
         <Button variant="text" size="small"
                 color="primary" onClick={props.callback}
                 className={s.btn}
         >{props.title}</Button>
     )
-}
+})
