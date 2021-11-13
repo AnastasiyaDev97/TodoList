@@ -1,44 +1,50 @@
 import {v1} from "uuid";
-import {addTodolistAC, removeTodolistAC} from "./todolist-reducer";
-import {tasksType} from "../../AppWithRedux";
+import {addTodolistAC, removeTodolistAC, setTodolistsAC} from "./todolist-reducer";
 
-type stateType = tasksType
-type ActionType =
-    ReturnType<typeof removeTaskAC>
-    | ReturnType<typeof addTaskAC>
-    | ReturnType<typeof changeTaskStatusAC>
-    | ReturnType<typeof changeTaskTitleAC>
-    | ReturnType<typeof addTodolistAC>
-    | ReturnType<typeof removeTodolistAC>
+export type taskType = {
+    taskId: string
+    taskTitle: string
+    isDone: boolean
+}
+export type tasksType = {
+    [key: string]: Array<taskType>
+}
 
-let initialState: stateType = {}
-
-
+let initialState: tasksType = {
+    /* 'todoid1':[],
+    */
+}
 export const tasksReducer = (state = initialState, action: ActionType) => {
     switch (action.type) {
+        case "SET-TODOLISTS":
+            let newState={...state}
+            action.todolists.forEach(f=>{
+                newState[f.id]=[]
+            })
+            return newState
         case "REMOVE-TASK":
-            return {...state, [action.todolistId]: state[action.todolistId].filter(f => f.taskId !== action.taskId)}
+            return {...state, [action.id]: state[action.id].filter(f => f.taskId !== action.taskId)}
         case "ADD-TASK":
             return {
-                ...state, [action.todolistId]:
-                    [{taskId: v1(), taskTitle: action.taskTitle, isDone: false}, ...state[action.todolistId]]
+                ...state, [action.id]:
+                    [{taskId: v1(), taskTitle: action.taskTitle, isDone: false}, ...state[action.id]]
             }
         case "CHANGE-TASK-STATUS":
             return {
-                ...state, [action.todolistId]: [...state[action.todolistId].map(m => m.taskId === action.taskId
+                ...state, [action.id]: [...state[action.id].map(m => m.taskId === action.taskId
                     ? {...m, isDone: action.isDone} : m)]
             }
 
         case "CHANGE-TASK-TITLE":
             return {
-                ...state, [action.todolistId]: [...state[action.todolistId].map(m => m.taskId === action.taskId
+                ...state, [action.id]: [...state[action.id].map(m => m.taskId === action.taskId
                     ? {...m, taskTitle: action.taskTitle} : m)]
             }
         case "ADD-TODOLIST":
-            return {...state, [action.todolistId]: []}
+            return {...state, [action.id]: []}
         case "REMOVE-TODOLIST": {
             let currState = {...state}
-            delete currState[action.todolistId]
+            delete currState[action.id]
             return currState
         }
         default:
@@ -46,35 +52,42 @@ export const tasksReducer = (state = initialState, action: ActionType) => {
     }
 }
 
-export const removeTaskAC = (taskId: string, todolistId: string) => {
+export const removeTaskAC = (taskId: string, id: string) => {
     return {
         type: "REMOVE-TASK",
-        todolistId,
+        id,
         taskId,
     } as const
 }
 
 
-export const addTaskAC = (taskTitle: string, todolistId: string) => {
+export const addTaskAC = (taskTitle: string, id: string) => {
     return {
         type: "ADD-TASK",
         taskTitle,
-        todolistId,
+        id,
     } as const
 }
 
-export const changeTaskStatusAC = (taskId: string, isDone: boolean, todolistId: string) => ({
+export const changeTaskStatusAC = (taskId: string, isDone: boolean, id: string) => ({
     type: "CHANGE-TASK-STATUS" as const,
     taskId,
     isDone,
-    todolistId,
+    id,
 })
 
-export const changeTaskTitleAC = (taskId: string, newTitle: string, todolistId: string) => ({
+export const changeTaskTitleAC = (taskId: string, newTitle: string, id: string) => ({
     type: "CHANGE-TASK-TITLE" as const,
     taskId,
     taskTitle: newTitle,
-    todolistId,
+    id,
 })
 
-
+type ActionType =
+    ReturnType<typeof removeTaskAC>
+    | ReturnType<typeof addTaskAC>
+    | ReturnType<typeof changeTaskStatusAC>
+    | ReturnType<typeof changeTaskTitleAC>
+    | ReturnType<typeof addTodolistAC>
+    | ReturnType<typeof removeTodolistAC>
+    | ReturnType<typeof setTodolistsAC>

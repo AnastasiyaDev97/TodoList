@@ -1,6 +1,5 @@
 import {combineReducers, createStore} from "redux";
 import React from 'react';
-import {v1} from "uuid";
 import {tasksReducer} from "../state/reducers/tasks-reducer";
 import todolistsReducer from "../state/reducers/todolist-reducer";
 import {Provider} from "react-redux";
@@ -9,10 +8,10 @@ const rootReducerStory=combineReducers({
     todolists:todolistsReducer
 })
 
-export const initialStoryState={
+/*export const initialStoryState={
     todolists:[
-        {todolistId: 'todolistId1', title: 'What to learn', filter: 'all'},
-        {todolistId: 'todolistId2', title: 'What to buy', filter: 'all'},
+        {id: 'todolistId1', title: 'What to learn', filter: 'all'},
+        {id: 'todolistId2', title: 'What to buy', filter: 'all'},
     ],
     tasks:{
         ['todolistId1']: [{taskId: v1(), taskTitle: 'HTML&CSS', isDone: true},
@@ -22,9 +21,9 @@ export const initialStoryState={
             {taskId: v1(), taskTitle: 'salt', isDone: false},
             {taskId: v1(), taskTitle: 'apples', isDone: false}],
     }
-}
+}*/
 
-export const storeStory=createStore(rootReducerStory,initialStoryState as RootReducerType)
+export const storeStory=createStore(rootReducerStory/*,initialStoryState as RootReducerType*/)
 export type RootReducerType=ReturnType<typeof rootReducerStory>
 
 export const ReduxStoreProviderDecorator=(storyFn:()=>React.ReactNode)=>{

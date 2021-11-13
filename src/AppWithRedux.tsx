@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 
 import {Todolist} from "./Todolist";
 import {AddItemForm} from "./components/AddItemForm/AddItemForm";
@@ -9,36 +9,29 @@ import {
     addTaskAC,
     changeTaskStatusAC,
     changeTaskTitleAC,
-    removeTaskAC,
+    removeTaskAC, tasksType,
 } from "./state/reducers/tasks-reducer";
 import {
     addTodolistAC,
-    changeTodolistFilterAC, changeTodolistTitleAC,
-    removeTodolistAC,
+    changeTodolistFilterAC, changeTodolistTitleAC, filterValuesType,
+    removeTodolistAC, setTodosThunk, todolistsDomainType,
 
 } from "./state/reducers/todolist-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {RootReducerType} from "./state/store";
 
-export type taskType = {
-    taskId: string
-    taskTitle: string
-    isDone: boolean
-}
-export type tasksType = {
-    [key: string]: Array<taskType>
-}
-export type filterValuesType = "all" | "completed" | "active"
-export type todolistsType = {
-    todolistId: string
-    title: string
-    filter: filterValuesType
-}
+
+
 
 function AppWithRedux() {
+
+  useEffect(()=>{
+      dispatch(setTodosThunk)
+    },[])
+
     console.log('app')
     const tasks = useSelector<RootReducerType, tasksType>(state => state.tasks)
-    const todolists = useSelector<RootReducerType, Array<todolistsType>>(state => state.todolists)
+    const todolists = useSelector<RootReducerType, Array<todolistsDomainType>>(state => state.todolists)
     const dispatch = useDispatch()
 
 
@@ -101,12 +94,13 @@ function AppWithRedux() {
                 <Grid container spacing={3}>
 
                     {todolists.map(m => {
-                        let tasksForTodolist = tasks[m.todolistId]
+                        debugger
+                        let tasksForTodolist = tasks[m.id]
 
-                        return (<Grid item key={m.todolistId}>
+                        return (<Grid item key={m.id}>
                                 <Paper style={{padding: "10px"}}>
-                                    <Todolist key={m.todolistId}
-                                              todolistId={m.todolistId}
+                                    <Todolist key={m.id}
+                                              todolistId={m.id}
                                               todolistTitle={m.title} tasks={tasksForTodolist} deleteTask={deleteTask}
                                               changeTodolistFilter={changeFilter} addTask={addTask}
                                               changeTaskStatus={changeTaskStatus}
