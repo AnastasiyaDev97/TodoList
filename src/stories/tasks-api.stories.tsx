@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react'
-import {tasksAPI} from "../api/tasks-api";
+/*import React, {useEffect, useState} from 'react'
+import {tasksAPI} from "../api/tasks-api";*/
 
-
+/*
 export default {
     title: 'API-TASKS'
 }
@@ -62,5 +62,5 @@ export const UpdateTaskTitle = () => {
     }, [])
 
     return <div> {JSON.stringify(state)}</div>
-}
+}*/
 

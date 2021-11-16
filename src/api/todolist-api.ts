@@ -21,7 +21,6 @@ type ResponseType<D={}> = {
     data: D
 }
 
-
 export const todolistAPI = {
     GetTodolists() {
         return instance.get<Array<TodolistResponseType>>('todo-lists')
@@ -33,23 +32,22 @@ export const todolistAPI = {
     CreateTodolist(title: string) {
         return instance.post<ResponseType<{item: TodolistResponseType }>>('todo-lists', {title})
             .then(res => {
-                console.log(res)
                 return res.data
             })
     },
     DeleteTodolist(todolistId: string) {
         return instance.delete<ResponseType>(`todo-lists/${todolistId}`)
             .then(res => {
-                console.log(res)
                 return res.data
             })
     },
 
     UpdateTodolistTitle(todolistId: string, title: string) {
+        debugger
         return instance.put<ResponseType>(`todo-lists/${todolistId}`, {title})
             .then(res => {
-                console.log(res)
-               return res.data
+                debugger
+               return res.data.data
             })
     },
 }

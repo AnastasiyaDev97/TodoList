@@ -1,9 +1,9 @@
-import React from 'react';
+/*import React from 'react';
 import {ComponentStory, ComponentMeta} from '@storybook/react';
 import {Task} from "./Task";
-import {action} from "@storybook/addon-actions";
+import {action} from "@storybook/addon-actions";*/
 
-export default {
+/*export default {
     title: 'Todo/Task',
     component: Task,
 } as ComponentMeta<typeof Task>;
@@ -22,7 +22,7 @@ TaskStory.args = {
     taskTitle: 'css',
     isDone: true,
     todolistId: 'todo1'
-};
+};*/
 
 
 

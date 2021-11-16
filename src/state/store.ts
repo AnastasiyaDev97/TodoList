@@ -7,5 +7,5 @@ export const rootReducer=combineReducers({
     tasks:tasksReducer,
     todolists:todolistsReducer
 });
-export const store=createStore(rootReducer, applyMiddleware(thunk));
+export let store=createStore(rootReducer, applyMiddleware(thunk));
 export type RootReducerType=ReturnType<typeof rootReducer>;
