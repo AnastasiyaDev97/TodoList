@@ -27,7 +27,7 @@ export const AddItemForm = React.memo((props: addItemFormPropsType) => {
     }
 
     const onKeyPressAddTaskHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.charCode === 13) {
+        if (e.key === 'Enter') {
             addTaskHandler()
         }
     }

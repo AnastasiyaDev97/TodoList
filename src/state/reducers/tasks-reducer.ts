@@ -2,6 +2,7 @@ import {TaskPriorities, TaskResponseType, tasksAPI, TaskStatuses, updateTaskType
 import {addTodolistAC, removeTodolistAC, setTodolistsAC} from "./todolist-reducer";
 import {Dispatch} from "redux";
 import {RootReducerType} from "../store";
+import {setErrorText, setErrorTextType, setRequestStatus, setRequestStatusType} from "./app-reducer";
 
 
 export type tasksType = {
@@ -31,7 +32,8 @@ export const tasksReducer = (state = initialState, action: ActionType) => {
         case "UPDATE-TASK":
             return {
                 ...state,
-                [action.task.todoListId]: [...state[action.task.todoListId].map(m => m.id === action.taskId ? {...action.task} : m)]
+                [action.task.todoListId]: [...state[action.task.todoListId].map(m => m.id === action.taskId
+                    ? {...action.task} : m)]
             }
         case "ADD-TODOLIST":
             return {...state, [action.todolist.id]: []}
@@ -78,23 +80,43 @@ export const setTasksAC = (tasks: Array<TaskResponseType>, todolistId: string) =
 
 export const getTasksTC = (todolistId: string) =>
     (dispatch: Dispatch<ActionType>) => {
+        dispatch(setRequestStatus('loading'))
         tasksAPI.GetTasks(todolistId)
-            .then((data) =>
-                dispatch(setTasksAC(data.items, todolistId)))
+            .then((data) => {
+                dispatch(setTasksAC(data.items, todolistId))
+                dispatch(setRequestStatus('succeeded'))
+            })
+
     }
 
 export const deleteTaskTC = (todolistId: string, taskId: string) =>
     (dispatch: Dispatch<ActionType>) => {
+        dispatch(setRequestStatus('loading'))
         tasksAPI.DeleteTask(todolistId, taskId)
-            .then(() => dispatch(removeTaskAC(taskId, todolistId)))
+            .then((data) => {
+                if (data.resultCode === 0) {
+                    dispatch(removeTaskAC(taskId, todolistId))
+                    dispatch(setRequestStatus('succeeded'))
+                } else {
+                    dispatch(setErrorText(data.messages[0]))
+                    dispatch(setRequestStatus('failed'))
+                }
+            })
     }
 
 export const addTaskTC = (todolistId: string, title: string) =>
     (dispatch: Dispatch<ActionType>) => {
+        dispatch(setRequestStatus('loading'))
         tasksAPI.CreateTask(todolistId, title)
             .then((data) => {
-                let task = data.data.item
-                dispatch(addTaskAC(task, todolistId))
+                if (data.resultCode === 0) {
+                    let task = data.data.item
+                    dispatch(addTaskAC(task, todolistId))
+                    dispatch(setRequestStatus('succeeded'))
+                } else {
+                    dispatch(setErrorText(data.messages[0]))
+                    dispatch(setRequestStatus('failed'))
+                }
             })
     }
 export type updateElemInTaskType = {
@@ -108,7 +130,6 @@ export type updateElemInTaskType = {
 
 export const updateTaskTC = (todolistId: string, taskId: string, updateElemInTask: updateElemInTaskType) =>
     (dispatch: Dispatch<ActionType>, getState: () => RootReducerType) => {
-        debugger
         let tasks = getState().tasks
         let currTask = tasks[todolistId].find(f => f.id === taskId)
         if (currTask) {
@@ -121,10 +142,17 @@ export const updateTaskTC = (todolistId: string, taskId: string, updateElemInTas
                 deadline: currTask.deadline,
             }
             let updateTaskForAPI = {...updateTask, ...updateElemInTask}
+            dispatch(setRequestStatus('loading'))
             tasksAPI.UpdateTask(todolistId, taskId, updateTaskForAPI)
                 .then((data) => {
-                    let task = data.data.item
-                    dispatch(updateTaskAC(task, taskId))
+                    if (data.resultCode === 0) {
+                        let task = data.data.item
+                        dispatch(updateTaskAC(task, taskId))
+                        dispatch(setRequestStatus('succeeded'))
+                    } else {
+                        dispatch(setErrorText(data.messages[0]))
+                        dispatch(setRequestStatus('failed'))
+                    }
                 })
         }
     }
@@ -138,3 +166,5 @@ type ActionType =
     | ReturnType<typeof setTodolistsAC>
     | ReturnType<typeof setTasksAC>
     | ReturnType<typeof updateTaskAC>
+    | setRequestStatusType
+    | setErrorTextType

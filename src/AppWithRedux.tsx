@@ -1,8 +1,9 @@
 import React, {useCallback, useEffect} from 'react';
 
 import {Todolist} from "./Todolist";
-import {AddItemForm} from "./components/AddItemForm/AddItemForm";
-import {AppBar, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
+
+import {AppBar, Container, Grid, IconButton, LinearProgress, Paper, Toolbar, Typography} from "@material-ui/core";
+
 import {Menu} from "@material-ui/icons";
 import s from './App.module.css'
 import {
@@ -10,14 +11,21 @@ import {
     deleteTaskTC, tasksType, updateTaskTC
 } from "./state/reducers/tasks-reducer";
 import {
-     addTodoTC,
+    addTodoTC,
     changeTodolistFilterAC, filterValuesType,
-     removeTodoTC, setTodosTC, todolistsDomainType, updateTodoTitleTC,
+    removeTodoTC, setTodosTC, todolistsDomainType, updateTodoTitleTC,
 
 } from "./state/reducers/todolist-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {RootReducerType} from "./state/store";
 import {TaskStatuses} from "./api/tasks-api";
+
+
+import { RequestStatusType} from "./state/reducers/app-reducer";
+import {AddItemForm} from "./components/AddItemForm/AddItemForm";
+import ErrorSnackbar from "./components/Snackbar/Snackbar";
+
+
 
 
 function AppWithRedux() {
@@ -30,6 +38,8 @@ function AppWithRedux() {
     const tasks = useSelector<RootReducerType, tasksType>(state => state.tasks)
     const todolists = useSelector<RootReducerType, Array<todolistsDomainType>>(state => state.todolists)
     const dispatch = useDispatch()
+    const status=useSelector<RootReducerType,RequestStatusType>(state=>state.app.status)
+
 
 
     const deleteTask = useCallback(function (todolistId: string, taskId: string) {
@@ -77,6 +87,9 @@ function AppWithRedux() {
                     </Typography>
                 </Toolbar>
             </AppBar>
+            {status === 'loading' &&
+            <LinearProgress />
+            }
             <Container fixed>
                 <Grid container style={{padding: "20px"}}>
                     <AddItemForm addItem={addTodolist}/>
@@ -88,6 +101,7 @@ function AppWithRedux() {
                                 <Paper style={{padding: "10px"}}>
                                     <Todolist key={m.id}
                                               todolistId={m.id}
+                                              entityStatus={m.entityStatus}
                                               todolistTitle={m.title} tasks={tasksForTodolist} deleteTask={deleteTask}
                                               changeTodolistFilter={changeFilter} addTask={addTask}
                                               changeTaskStatus={changeTaskStatus}
@@ -101,6 +115,7 @@ function AppWithRedux() {
                     })}
                 </Grid>
             </Container>
+            <ErrorSnackbar />
         </div>
     );
 }

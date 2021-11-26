@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect} from "react";
 import s from './Todolist.module.css'
-import {AddItemForm} from "./components/AddItemForm/AddItemForm";
+
 import {EditableSpan} from "./components/EditableSpan/EditableSpan";
 import {Button, IconButton} from '@material-ui/core';
 import {Delete} from '@material-ui/icons';
@@ -9,6 +9,8 @@ import {filterValuesType} from "./state/reducers/todolist-reducer";
 import {TaskResponseType, TaskStatuses} from "./api/tasks-api";
 import {getTasksTC} from "./state/reducers/tasks-reducer";
 import {useDispatch} from "react-redux";
+import {AddItemForm} from "./components/AddItemForm/AddItemForm";
+import {RequestStatusType} from "./state/reducers/app-reducer";
 
 
 type TodolistPropsType = {
@@ -23,6 +25,7 @@ type TodolistPropsType = {
     deleteTodolist: (todolistId: string) => any
     updateTaskTitle: (todolistId: string, taskId: string, title: string) => any
     updateTodoTitle: (todolistId: string, newTitle: string) => any
+    entityStatus:RequestStatusType
 }
 
 export const Todolist = React.memo((props: TodolistPropsType) => {
@@ -68,7 +71,7 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
     return (
         <div>
             <h3><EditableSpan title={props.todolistTitle} updateTitle={updateTodoTitleHandler}/>
-                <IconButton aria-label="delete" size="small" onClick={deleteTodoHandler}>
+                <IconButton aria-label="delete" size="small" onClick={deleteTodoHandler} disabled={props.entityStatus==='loading'}>
                     <Delete fontSize="small"/>
                 </IconButton>
 

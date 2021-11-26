@@ -47,7 +47,7 @@ export const todolistAPI = {
         return instance.put<ResponseType>(`todo-lists/${todolistId}`, {title})
             .then(res => {
                 debugger
-               return res.data.data
+               return res.data
             })
     },
 }
