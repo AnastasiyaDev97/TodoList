@@ -14,7 +14,7 @@ export type TodolistResponseType = {
     order: number
 }
 
-type ResponseType<D={}> = {
+export type ResponseType<D={}> = {
     resultCode: number
     messages: Array<string>
     fieldsErrors: Array<string>
@@ -25,7 +25,6 @@ export const todolistAPI = {
     GetTodolists() {
         return instance.get<Array<TodolistResponseType>>('todo-lists')
             .then(res => {
-                console.log(res)
                 return res.data
             })
     },

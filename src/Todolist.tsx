@@ -25,15 +25,15 @@ type TodolistPropsType = {
     deleteTodolist: (todolistId: string) => any
     updateTaskTitle: (todolistId: string, taskId: string, title: string) => any
     updateTodoTitle: (todolistId: string, newTitle: string) => any
-    entityStatus:RequestStatusType
+    entityStatus: RequestStatusType
 }
 
 export const Todolist = React.memo((props: TodolistPropsType) => {
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getTasksTC(props.todolistId))
-    },[])
+    }, [])
 
-    const dispatch=useDispatch()
+    const dispatch = useDispatch()
 
     console.log('todo')
     const changeAllFilterHandler = useCallback(() => {
@@ -62,16 +62,17 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
 
     let filteredTasks = props.tasks
     if (props.filter === 'completed') {
-        filteredTasks = props.tasks.filter(f => f.status===TaskStatuses.Completed)
+        filteredTasks = props.tasks.filter(f => f.status === TaskStatuses.Completed)
     }
     if (props.filter === 'active') {
-        filteredTasks = props.tasks.filter(f => f.status===TaskStatuses.New)
+        filteredTasks = props.tasks.filter(f => f.status === TaskStatuses.New)
     }
 
     return (
         <div>
             <h3><EditableSpan title={props.todolistTitle} updateTitle={updateTodoTitleHandler}/>
-                <IconButton aria-label="delete" size="small" onClick={deleteTodoHandler} disabled={props.entityStatus==='loading'}>
+                <IconButton aria-label="delete" size="small" onClick={deleteTodoHandler}
+                            disabled={props.entityStatus === 'loading'}>
                     <Delete fontSize="small"/>
                 </IconButton>
 

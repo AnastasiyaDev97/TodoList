@@ -1,4 +1,11 @@
-import {setTodolistStatusType} from "./todolist-reducer";
+import {
+    addTodolistAC, changeTodolistFilterAC,
+    changeTodolistTitleAC,
+    removeTodolistAC,
+    setTodolistsAC,
+    setTodolistStatusType
+} from "./todolist-reducer";
+import {addTaskAC, removeTaskAC, setTasksAC, updateTaskAC} from "./tasks-reducer";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
@@ -10,9 +17,9 @@ export type appInitialStateType = {
     status: RequestStatusType
     error: string | null
 }
-type ActionType = setRequestStatusType | setErrorTextType | setTodolistStatusType
 
-export const appReducer = (state: appInitialStateType = initialState, action: ActionType) => {
+
+export const appReducer = (state: appInitialStateType = initialState, action: AppActionType) => {
     switch (action.type) {
         case 'SET-REQUEST-STATUS':
             return {...state, status: action.status};
@@ -36,3 +43,26 @@ export const setErrorText = (error: string | null) => ({
 
 export type setRequestStatusType = ReturnType<typeof setRequestStatus>
 export type setErrorTextType = ReturnType<typeof setErrorText>
+
+
+export type AppActionType =
+    ReturnType<typeof removeTaskAC>
+    | ReturnType<typeof addTaskAC>
+    | ReturnType<typeof addTodolistAC>
+    | ReturnType<typeof removeTodolistAC>
+    | ReturnType<typeof setTodolistsAC>
+    | ReturnType<typeof setTasksAC>
+    | ReturnType<typeof updateTaskAC>
+    | setRequestStatusType
+    | setErrorTextType
+    | ReturnType<typeof addTodolistAC>
+    | ReturnType<typeof changeTodolistTitleAC>
+    | ReturnType<typeof changeTodolistFilterAC>
+    | ReturnType<typeof setTodolistsAC>
+    | setTodolistStatusType
+
+export enum ResultCodes {
+    success = 0,
+    error = 1,
+    captcha = 10,
+}

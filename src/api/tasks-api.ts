@@ -1,4 +1,5 @@
 import axios from "axios";
+import {ResponseType} from "./todolist-api";
 
 
 const instance = axios.create({
@@ -50,29 +51,23 @@ export type updateTaskType = {
     deadline: null | string
 }
 
-type ResponseType<D = {}> = {
-    data: D
-    messages: Array<string>
-    fieldsErrors: Array<string>
-    resultCode: number
-}
 
 export const tasksAPI = {
     GetTasks(todolistId: string) {
         return instance.get<GetTasksResponseType>(`todo-lists/${todolistId}/tasks`)
-            .then(res => res.data)
+            .then(res =>{
+                return res.data
+            })
     },
     CreateTask(todolistId: string, title: string) {
         return instance.post<ResponseType<{ item: TaskResponseType }>>(`todo-lists/${todolistId}/tasks`, {title})
             .then(res => {
-                console.log(res)
                 return res.data
             })
     },
     DeleteTask(todolistId: string, taskId: string) {
         return instance.delete<ResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`)
             .then(res => {
-                console.log(res)
                 return res.data
             })
     },
@@ -88,7 +83,6 @@ export const tasksAPI = {
             deadline
         })
             .then(res => {
-                console.log(res)
                 return res.data
             })
     },
