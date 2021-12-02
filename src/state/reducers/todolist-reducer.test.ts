@@ -8,15 +8,15 @@ import todolistsReducer, {
 } from "./todolist-reducer";
 import {todolistsType} from "../../AppWithRedux";
 
-let todolistId1:string
-let todolistId2:string
-let newTodolistTitle:string
+let todolistId1: string
+let todolistId2: string
+let newTodolistTitle: string
 let startState: Array<todolistsType>
-beforeEach(()=>{
+beforeEach(() => {
     todolistId1 = v1()
     todolistId2 = v1()
-    newTodolistTitle= "New Todolist"
-    startState=[
+    newTodolistTitle = "New Todolist"
+    startState = [
         {todolistId: todolistId1, title: "What to learn", filter: "all"},
         {todolistId: todolistId2, title: "What to buy", filter: "all"}
     ]

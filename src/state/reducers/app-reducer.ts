@@ -6,6 +6,7 @@ import {
     setTodolistStatusType
 } from "./todolist-reducer";
 import {addTaskAC, removeTaskAC, setTasksAC, updateTaskAC} from "./tasks-reducer";
+import {setIsLoggedInAC} from "./auth-reducer";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
@@ -60,6 +61,7 @@ export type AppActionType =
     | ReturnType<typeof changeTodolistFilterAC>
     | ReturnType<typeof setTodolistsAC>
     | setTodolistStatusType
+    | ReturnType<typeof setIsLoggedInAC>
 
 export enum ResultCodes {
     success = 0,

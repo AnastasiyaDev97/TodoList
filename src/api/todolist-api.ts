@@ -50,3 +50,21 @@ export const todolistAPI = {
             })
     },
 }
+
+export type loginParamsType={
+    email:string
+    password:string
+    rememberMe?:boolean
+    captcha?:string
+}
+
+export const authAPI= {
+    login(loginParams:loginParamsType) {
+        let {email,password,rememberMe,captcha}=loginParams
+        return instance.post<ResponseType<{userId:number}>>('auth/login',{email,password,rememberMe,captcha})
+            .then(res=>{
+                debugger
+                return res.data
+            })
+    }
+}
