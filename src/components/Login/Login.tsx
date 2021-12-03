@@ -4,7 +4,9 @@ import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, T
 import {useFormik} from "formik";
 import {authAPI} from "../../api/todolist-api";
 import {loginTC} from "../../state/reducers/auth-reducer";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {RootReducerType} from "../../state/store";
+import {Navigate} from "react-router-dom";
 
 type FormikErrorType = {
     email?: string
@@ -13,8 +15,8 @@ type FormikErrorType = {
 }
 
 export const Login = () => {
-    const dispatch=useDispatch();
-
+    const dispatch = useDispatch();
+    const isLoggedIn = useSelector<RootReducerType, boolean>(state => state.auth.isLoggedIn)
 
     const formik = useFormik({
         initialValues: {
@@ -43,6 +45,9 @@ export const Login = () => {
             dispatch(loginTC(values))
         },
     })
+    if (isLoggedIn) {
+        return <Navigate to={'/'}/>
+    }
     return <Grid container justifyContent={'center'}>
         <Grid item justifyContent={'center'}>
             <form onSubmit={formik.handleSubmit}>
@@ -68,9 +73,7 @@ export const Login = () => {
                         <div style={{color: "red"}}>{formik.errors.password}</div>}
                         <FormControlLabel label={'Remember me'}
                                           checked={formik.values.rememberMe}
-                                          control={<Checkbox {...formik.getFieldProps('rememberMe')}
-
-                                                             /*onChange={formik.handleChange}*//>}/>
+                                          control={<Checkbox {...formik.getFieldProps('rememberMe')}/>}/>
                         <Button type={'submit'} variant={'contained'} color={'primary'}>
                             Login
                         </Button>

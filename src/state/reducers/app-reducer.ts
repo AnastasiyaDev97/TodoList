@@ -6,17 +6,19 @@ import {
     setTodolistStatusType
 } from "./todolist-reducer";
 import {addTaskAC, removeTaskAC, setTasksAC, updateTaskAC} from "./tasks-reducer";
-import {setIsLoggedInAC} from "./auth-reducer";
+import {setAuthUserData, setIsLoggedInAC} from "./auth-reducer";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
 const initialState = {
     status: 'idle' as RequestStatusType,
-    error: null
+    error: null,
+    isInitialize:false,
 }
 export type appInitialStateType = {
     status: RequestStatusType
     error: string | null
+    isInitialize:boolean
 }
 
 
@@ -27,6 +29,8 @@ export const appReducer = (state: appInitialStateType = initialState, action: Ap
         case 'SET-ERROR-TEXT':
 
             return {...state, error: action.error};
+        case 'TOGGLE-INITIALIZATION':
+            return {...state, isInitialize: action.value};
         default:
             return state
     }
@@ -40,6 +44,10 @@ export const setRequestStatus = (status: RequestStatusType) => ({
 export const setErrorText = (error: string | null) => ({
     type: 'SET-ERROR-TEXT',
     error,
+} as const)
+export const toggleIsInitialize = (value: boolean) => ({
+    type: 'TOGGLE-INITIALIZATION',
+    value,
 } as const)
 
 export type setRequestStatusType = ReturnType<typeof setRequestStatus>
@@ -62,6 +70,8 @@ export type AppActionType =
     | ReturnType<typeof setTodolistsAC>
     | setTodolistStatusType
     | ReturnType<typeof setIsLoggedInAC>
+    | ReturnType<typeof setAuthUserData>
+    | ReturnType<typeof toggleIsInitialize>
 
 export enum ResultCodes {
     success = 0,

@@ -3,6 +3,9 @@ import {todolistAPI, TodolistResponseType} from "../../api/todolist-api";
 import {AppActionType, RequestStatusType, ResultCodes, setRequestStatus} from "./app-reducer";
 import {catchErrorHandler, errorHandler} from "../../utils/error-utils";
 import {AxiosError} from "axios";
+import {getTasksTC} from "./tasks-reducer";
+import {RootReducerType} from "../store";
+import {ThunkAction} from "redux-thunk";
 
 export type todolistsDomainType = TodolistResponseType & { filter: filterValuesType, entityStatus: RequestStatusType }
 export type filterValuesType = "all" | "completed" | "active"
@@ -76,11 +79,16 @@ export const setTodolistProgressStatus = (entityStatus: RequestStatusType, todol
         todolistId,
     }
 }
-export const setTodosTC = () => (dispatch: Dispatch<AppActionType>) => {
+type ThunkType = ThunkAction<void, RootReducerType, unknown, AppActionType>
+
+export const setTodosTC = ():ThunkType => (dispatch) => {
     dispatch(setRequestStatus('loading'))
     todolistAPI.GetTodolists().then((data) => {
         dispatch(setTodolistsAC(data))
         dispatch(setRequestStatus('succeeded'))
+        return data;
+    }).then((data)=>{
+        data.forEach(todo=>dispatch(getTasksTC(todo.id)))
     })
 }
 export const removeTodoTC = (todolistId: string) => (dispatch: Dispatch<AppActionType>) => {

@@ -20,6 +20,11 @@ export type ResponseType<D={}> = {
     fieldsErrors: Array<string>
     data: D
 }
+export type AuthUserDataType = {
+    id:number
+    login:string
+    email:string
+}
 
 export const todolistAPI = {
     GetTodolists() {
@@ -45,7 +50,6 @@ export const todolistAPI = {
         debugger
         return instance.put<ResponseType>(`todo-lists/${todolistId}`, {title})
             .then(res => {
-                debugger
                return res.data
             })
     },
@@ -63,8 +67,18 @@ export const authAPI= {
         let {email,password,rememberMe,captcha}=loginParams
         return instance.post<ResponseType<{userId:number}>>('auth/login',{email,password,rememberMe,captcha})
             .then(res=>{
+                return res.data
+            })
+    },
+    logout() {
+        return instance.delete<ResponseType>('auth/login')
+            .then(res=>{
                 debugger
                 return res.data
             })
+    },
+    getAuthData() {
+        return instance.get<ResponseType<AuthUserDataType>>('auth/me')
+            .then(res=>res.data)
     }
 }

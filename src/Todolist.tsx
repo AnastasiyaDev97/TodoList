@@ -7,8 +7,6 @@ import {Delete} from '@material-ui/icons';
 import {Task} from "./components/Task/Task";
 import {filterValuesType} from "./state/reducers/todolist-reducer";
 import {TaskResponseType, TaskStatuses} from "./api/tasks-api";
-import {getTasksTC} from "./state/reducers/tasks-reducer";
-import {useDispatch} from "react-redux";
 import {AddItemForm} from "./components/AddItemForm/AddItemForm";
 import {RequestStatusType} from "./state/reducers/app-reducer";
 
@@ -29,11 +27,6 @@ type TodolistPropsType = {
 }
 
 export const Todolist = React.memo((props: TodolistPropsType) => {
-    useEffect(() => {
-        dispatch(getTasksTC(props.todolistId))
-    }, [])
-
-    const dispatch = useDispatch()
 
     console.log('todo')
     const changeAllFilterHandler = useCallback(() => {
