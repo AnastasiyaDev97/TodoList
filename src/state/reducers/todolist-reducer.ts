@@ -79,27 +79,28 @@ export const setTodolistProgressStatus = (entityStatus: RequestStatusType, todol
         todolistId,
     }
 }
-type ThunkType = ThunkAction<void, RootReducerType, unknown, AppActionType>
+/*type ThunkType = ThunkAction<void, RootReducerType, unknown, AppActionType>*/
 
-export const setTodosTC = ():ThunkType => (dispatch) => {
-    dispatch(setRequestStatus('loading'))
+export const setTodosTC = ()/*:ThunkType*/ => (dispatch:Dispatch) => {
+    dispatch(setRequestStatus({status:'loading'}))
     todolistAPI.GetTodolists().then((data) => {
         dispatch(setTodolistsAC(data))
-        dispatch(setRequestStatus('succeeded'))
+        dispatch(setRequestStatus({status:'succeeded'}))
         return data;
     }).then((data)=>{
+        //@ts-ignore
         data.forEach(todo=>dispatch(getTasksTC(todo.id)))
     })
 }
-export const removeTodoTC = (todolistId: string) => (dispatch: Dispatch<AppActionType>) => {
-    dispatch(setRequestStatus('loading'))
+export const removeTodoTC = (todolistId: string) => (dispatch: Dispatch) => {
+    dispatch(setRequestStatus({status:'loading'}))
     dispatch(setTodolistProgressStatus('loading', todolistId))
     todolistAPI.DeleteTodolist(todolistId)
         .then((data) => {
             if (data.resultCode === ResultCodes.success) {
                 dispatch(removeTodolistAC(todolistId))
                 dispatch(setTodolistProgressStatus('succeeded', todolistId))
-                dispatch(setRequestStatus('succeeded'))
+                dispatch(setRequestStatus({status:'succeeded'}))
             } else {
                 errorHandler(dispatch, data)
                 dispatch(setTodolistProgressStatus('failed', todolistId))
@@ -109,14 +110,14 @@ export const removeTodoTC = (todolistId: string) => (dispatch: Dispatch<AppActio
             catchErrorHandler(dispatch, err)
         })
 }
-export const addTodoTC = (title: string) => (dispatch: Dispatch<AppActionType>) => {
+export const addTodoTC = (title: string) => (dispatch: Dispatch) => {
 
-    dispatch(setRequestStatus('loading'))
+    dispatch(setRequestStatus({status:'loading'}))
     todolistAPI.CreateTodolist(title)
         .then((data) => {
             if (data.resultCode === ResultCodes.success) {
                 dispatch(addTodolistAC(data.data.item))
-                dispatch(setRequestStatus('succeeded'))
+                dispatch(setRequestStatus({status:'succeeded'}))
             } else {
                 errorHandler(dispatch, data)
             }
@@ -126,13 +127,13 @@ export const addTodoTC = (title: string) => (dispatch: Dispatch<AppActionType>) 
         })
 
 }
-export const updateTodoTitleTC = (todolistId: string, title: string) => (dispatch: Dispatch<AppActionType>) => {
-    dispatch(setRequestStatus('loading'))
+export const updateTodoTitleTC = (todolistId: string, title: string) => (dispatch: Dispatch) => {
+    dispatch(setRequestStatus({status:'loading'}))
     todolistAPI.UpdateTodolistTitle(todolistId, title)
         .then((data) => {
             if (data.resultCode === ResultCodes.success) {
                 dispatch(changeTodolistTitleAC())
-                dispatch(setRequestStatus('succeeded'))
+                dispatch(setRequestStatus({status:'succeeded'}))
             } else {
                 errorHandler(dispatch, data)
             }

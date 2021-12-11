@@ -81,24 +81,24 @@ export const setTasksAC = (tasks: Array<TaskResponseType>, todolistId: string) =
 })
 
 export const getTasksTC = (todolistId: string) =>
-    (dispatch: Dispatch<AppActionType>) => {
-        dispatch(setRequestStatus('loading'))
+    (dispatch: Dispatch) => {
+        dispatch(setRequestStatus({status:'loading'}))
         tasksAPI.GetTasks(todolistId)
             .then((data) => {
                 dispatch(setTasksAC(data.items, todolistId))
-                dispatch(setRequestStatus('succeeded'))
+                dispatch(setRequestStatus({status:'succeeded'}))
             })
 
     }
 
 export const deleteTaskTC = (todolistId: string, taskId: string) =>
-    (dispatch: Dispatch<AppActionType>) => {
-        dispatch(setRequestStatus('loading'))
+    (dispatch: Dispatch) => {
+        dispatch(setRequestStatus({status:'loading'}))
         tasksAPI.DeleteTask(todolistId, taskId)
             .then((data) => {
                 if (data.resultCode === ResultCodes.success) {
                     dispatch(removeTaskAC(taskId, todolistId))
-                    dispatch(setRequestStatus('succeeded'))
+                    dispatch(setRequestStatus({status:'succeeded'}))
                 } else {
                     errorHandler(dispatch, data)
                 }
@@ -109,14 +109,14 @@ export const deleteTaskTC = (todolistId: string, taskId: string) =>
     }
 
 export const addTaskTC = (todolistId: string, title: string) =>
-    (dispatch: Dispatch<AppActionType>) => {
-        dispatch(setRequestStatus('loading'))
+    (dispatch: Dispatch) => {
+        dispatch(setRequestStatus({status:'loading'}))
         tasksAPI.CreateTask(todolistId, title)
             .then((data) => {
                 if (data.resultCode === ResultCodes.success) {
                     let task = data.data.item
                     dispatch(addTaskAC(task, todolistId))
-                    dispatch(setRequestStatus('succeeded'))
+                    dispatch(setRequestStatus({status:'succeeded'}))
                 } else {
                     errorHandler(dispatch, data)
                 }
@@ -133,7 +133,7 @@ export type updateElemInTaskType = {
 }
 
 export const updateTaskTC = (todolistId: string, taskId: string, updateElemInTask: updateElemInTaskType) =>
-    (dispatch: Dispatch<AppActionType>, getState: () => RootReducerType) => {
+    (dispatch: Dispatch, getState: () => RootReducerType) => {
         let tasks = getState().tasks
         let currTask = tasks[todolistId].find(f => f.id === taskId)
         if (currTask) {
@@ -146,13 +146,13 @@ export const updateTaskTC = (todolistId: string, taskId: string, updateElemInTas
                 deadline: currTask.deadline,
             }
             let updateTaskForAPI = {...updateTask, ...updateElemInTask}
-            dispatch(setRequestStatus('loading'))
+            dispatch(setRequestStatus({status:'loading'}))
             tasksAPI.UpdateTask(todolistId, taskId, updateTaskForAPI)
                 .then((data) => {
                     if (data.resultCode === ResultCodes.success) {
                         let task = data.data.item
                         dispatch(updateTaskAC(task, taskId))
-                        dispatch(setRequestStatus('succeeded'))
+                        dispatch(setRequestStatus({status:'succeeded'}))
                     } else {
                         errorHandler(dispatch, data)
                     }

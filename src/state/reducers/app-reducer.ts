@@ -6,13 +6,13 @@ import {
     setTodolistStatusType
 } from "./todolist-reducer";
 import {addTaskAC, removeTaskAC, setTasksAC, updateTaskAC} from "./tasks-reducer";
-import {setAuthUserData, setIsLoggedInAC} from "./auth-reducer";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
 const initialState = {
     status: 'idle' as RequestStatusType,
-    error: null,
+    error: null as string|null,
     isInitialize:false,
 }
 export type appInitialStateType = {
@@ -21,37 +21,24 @@ export type appInitialStateType = {
     isInitialize:boolean
 }
 
+const slice = createSlice({
+    name: 'app',
+    initialState: initialState,
+    reducers: {
+        toggleIsInitialize(state, action: PayloadAction<{ value: boolean }>) {
+            state.isInitialize = action.payload.value;
+        },
+        setRequestStatus(state, action: PayloadAction<{ status: RequestStatusType }>) {
+            state.status = action.payload.status;
+        },
+        setErrorText(state, action: PayloadAction<{ error: string | null }>) {
+            state.error  = action.payload.error;
+    },
 
-export const appReducer = (state: appInitialStateType = initialState, action: AppActionType) => {
-    switch (action.type) {
-        case 'SET-REQUEST-STATUS':
-            return {...state, status: action.status};
-        case 'SET-ERROR-TEXT':
+}})
 
-            return {...state, error: action.error};
-        case 'TOGGLE-INITIALIZATION':
-            return {...state, isInitialize: action.value};
-        default:
-            return state
-    }
-}
-
-export const setRequestStatus = (status: RequestStatusType) => ({
-    type: 'SET-REQUEST-STATUS',
-    status,
-} as const)
-
-export const setErrorText = (error: string | null) => ({
-    type: 'SET-ERROR-TEXT',
-    error,
-} as const)
-export const toggleIsInitialize = (value: boolean) => ({
-    type: 'TOGGLE-INITIALIZATION',
-    value,
-} as const)
-
-export type setRequestStatusType = ReturnType<typeof setRequestStatus>
-export type setErrorTextType = ReturnType<typeof setErrorText>
+export const {setRequestStatus,toggleIsInitialize,setErrorText}=slice.actions
+export const appReducer = slice.reducer
 
 
 export type AppActionType =
@@ -62,16 +49,16 @@ export type AppActionType =
     | ReturnType<typeof setTodolistsAC>
     | ReturnType<typeof setTasksAC>
     | ReturnType<typeof updateTaskAC>
-    | setRequestStatusType
-    | setErrorTextType
+/*    | setRequestStatusType
+    | setErrorTextType*/
     | ReturnType<typeof addTodolistAC>
     | ReturnType<typeof changeTodolistTitleAC>
     | ReturnType<typeof changeTodolistFilterAC>
     | ReturnType<typeof setTodolistsAC>
     | setTodolistStatusType
-    | ReturnType<typeof setIsLoggedInAC>
+  /*  | ReturnType<typeof setIsLoggedInAC>
     | ReturnType<typeof setAuthUserData>
-    | ReturnType<typeof toggleIsInitialize>
+    | ReturnType<typeof toggleIsInitialize>*/
 
 export enum ResultCodes {
     success = 0,

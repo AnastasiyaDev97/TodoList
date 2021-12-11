@@ -33,7 +33,7 @@ export default function ErrorSnackbar() {
         if (reason === 'clickaway') {
             return;
         }
-        dispatch(setErrorText(null))
+        dispatch(setErrorText({error:null}))
     };
 
     return (
