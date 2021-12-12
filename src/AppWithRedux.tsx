@@ -101,7 +101,7 @@ export const TodolistList = () => {
     }, [dispatch])
 
     const changeFilter = useCallback(function (filterValue: filterValuesType, todolistId: string) {
-        const action = changeTodolistFilterAC(todolistId, filterValue)
+        const action = changeTodolistFilterAC({id:todolistId, newFilter:filterValue})
         dispatch(action)
     }, [dispatch])
 

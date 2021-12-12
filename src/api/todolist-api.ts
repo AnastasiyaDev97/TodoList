@@ -14,16 +14,16 @@ export type TodolistResponseType = {
     order: number
 }
 
-export type ResponseType<D={}> = {
+export type ResponseType<D = {}> = {
     resultCode: number
     messages: Array<string>
     fieldsErrors: Array<string>
     data: D
 }
 export type AuthUserDataType = {
-    id:number
-    login:string
-    email:string
+    id: number
+    login: string
+    email: string
 }
 
 export const todolistAPI = {
@@ -34,7 +34,7 @@ export const todolistAPI = {
             })
     },
     CreateTodolist(title: string) {
-        return instance.post<ResponseType<{item: TodolistResponseType }>>('todo-lists', {title})
+        return instance.post<ResponseType<{ item: TodolistResponseType }>>('todo-lists', {title})
             .then(res => {
                 return res.data
             })
@@ -47,38 +47,37 @@ export const todolistAPI = {
     },
 
     UpdateTodolistTitle(todolistId: string, title: string) {
-        debugger
         return instance.put<ResponseType>(`todo-lists/${todolistId}`, {title})
             .then(res => {
-               return res.data
+                return res.data
             })
     },
 }
 
-export type loginParamsType={
-    email:string
-    password:string
-    rememberMe?:boolean
-    captcha?:string
+export type loginParamsType = {
+    email: string
+    password: string
+    rememberMe?: boolean
+    captcha?: string
 }
 
-export const authAPI= {
-    login(loginParams:loginParamsType) {
-        let {email,password,rememberMe,captcha}=loginParams
-        return instance.post<ResponseType<{userId:number}>>('auth/login',{email,password,rememberMe,captcha})
-            .then(res=>{
+export const authAPI = {
+    login(loginParams: loginParamsType) {
+        let {email, password, rememberMe, captcha} = loginParams
+        return instance.post<ResponseType<{ userId: number }>>('auth/login', {email, password, rememberMe, captcha})
+            .then(res => {
                 return res.data
             })
     },
     logout() {
         return instance.delete<ResponseType>('auth/login')
-            .then(res=>{
+            .then(res => {
                 debugger
                 return res.data
             })
     },
     getAuthData() {
         return instance.get<ResponseType<AuthUserDataType>>('auth/me')
-            .then(res=>res.data)
+            .then(res => res.data)
     }
 }
