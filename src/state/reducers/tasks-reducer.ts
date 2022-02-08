@@ -6,6 +6,7 @@ import {AxiosError} from "axios";
 import {catchErrorHandler, errorHandler} from "../../utils/error-utils";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {addTodolistAC, removeTodolistAC, setTodolistsAC} from "./todolist-reducer";
+import { Nullable } from "../../type/Nullable";
 
 
 export type tasksType = {
@@ -104,11 +105,11 @@ export const addTaskTC = (todolistId: string, title: string) =>
     }
 export type updateElemInTaskType = {
     title?: string
-    description?: string | null
+    description?: Nullable<string>
     status?: TaskStatuses
     priority?: TaskPriorities
-    startDate?: null | string
-    deadline?: null | string
+    startDate?: Nullable<string>
+    deadline?: Nullable<string>
 }
 
 export const updateTaskTC = (todolistId: string, taskId: string, updateElemInTask: updateElemInTaskType) =>

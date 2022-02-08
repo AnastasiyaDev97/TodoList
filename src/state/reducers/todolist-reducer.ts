@@ -22,7 +22,6 @@ const slice = createSlice({
     initialState: initialState,
     reducers: {
         removeTodolistAC(state, action: PayloadAction<{ id: string }>) {
-            debugger
             let index = state.findIndex(tl => tl.id === action.payload.id)
             if (index !== -1) {
                 state.splice(index, 1)         //с какого индекса, сколько эл-ов
@@ -31,7 +30,7 @@ const slice = createSlice({
         addTodolistAC(state, action: PayloadAction<{ todolist: TodolistResponseType }>) {
             state.unshift({...action.payload.todolist, filter: "all", entityStatus: 'idle'})
         },
-        changeTodolistTitleAC(state, action: PayloadAction) {
+        changeTodolistTitleAC(state) {
             return state
         },
         changeTodolistFilterAC(state, action: PayloadAction<{ id: string, newFilter: filterValuesType }>) {
@@ -62,6 +61,7 @@ export const todolistsReducer = slice.reducer
 /*type ThunkType = ThunkAction<void, RootReducerType, unknown, AppActionType>*/
 
 export const setTodosTC = ()/*:ThunkType*/ => (dispatch: Dispatch) => {
+
     dispatch(setRequestStatus({status: 'loading'}))
     todolistAPI.GetTodolists().then((data) => {
         dispatch(setTodolistsAC({todolists: data}))
@@ -107,18 +107,18 @@ export const addTodoTC = (title: string) => (dispatch: Dispatch) => {
         })
 
 }
-export const updateTodoTitleTC = (todolistId: string, title: string) => (dispatch: Dispatch) => {
-    dispatch(setRequestStatus({status: 'loading'}))
-    todolistAPI.UpdateTodolistTitle(todolistId, title)
-        .then((data) => {
-            if (data.resultCode === ResultCodes.success) {
-                dispatch(changeTodolistTitleAC())
-                dispatch(setRequestStatus({status: 'succeeded'}))
-            } else {
-                errorHandler(dispatch, data)
-            }
-        })
-        .catch((err: AxiosError) => {
-            catchErrorHandler(dispatch, err)
-        })
+export const updateTodoTitleTC = (todolistId: string, title: string) => async (dispatch: Dispatch) => {
+    try {
+        dispatch(setRequestStatus({status: 'loading'}))
+        const data = await todolistAPI.UpdateTodolistTitle(todolistId, title)
+
+        if (data.resultCode === ResultCodes.success) {
+            dispatch(changeTodolistTitleAC())
+            dispatch(setRequestStatus({status: 'succeeded'}))
+        } else {
+            errorHandler(dispatch, data)
+        }
+    } catch (err) {
+        catchErrorHandler(dispatch, err)
+    }
 }

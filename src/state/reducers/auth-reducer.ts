@@ -4,15 +4,15 @@ import {authAPI, AuthUserDataType, loginParamsType} from "../../api/todolist-api
 import {catchErrorHandler, errorHandler} from "../../utils/error-utils";
 import {AxiosError} from "axios";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {Nullable} from "../../type/Nullable";
 
 const initialState = {
     isLoggedIn: false,
     data:{
-    id:null as null|number,
-    login:null as null|string,
-    email:null as null|string,
+    id:null as Nullable<number>,
+    login:null as Nullable<string>,
+    email:null as Nullable<string>,
 }}
-type InitialStateType = typeof initialState
 
 
 const slice = createSlice({

@@ -35,6 +35,7 @@ import {authUserTC, logoutTC} from "./state/reducers/auth-reducer";
 
 
 function AppWithRedux() {
+
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -85,12 +86,14 @@ return (
 export default AppWithRedux;
 
 export const TodolistList = () => {
+
     const isLoggedIn = useSelector<RootReducerType, boolean>(state => state.auth.isLoggedIn)
     const todolists = useSelector<RootReducerType, Array<todolistsDomainType>>(state => state.todolists)
     const tasks = useSelector<RootReducerType, tasksType>(state => state.tasks)
     const dispatch = useDispatch()
 
     useEffect(() => {
+
         if (!isLoggedIn) {
             return
         }

@@ -7,18 +7,19 @@ import {
 } from "./todolist-reducer";
 import {addTaskAC, removeTaskAC, setTasksAC, updateTaskAC} from "./tasks-reducer";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {Nullable} from "../../type/Nullable";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
 const initialState = {
     status: 'idle' as RequestStatusType,
-    error: null as string|null,
-    isInitialize:false,
+    error: null as Nullable<string>,
+    isInitialize: false,
 }
 export type appInitialStateType = {
     status: RequestStatusType
-    error: string | null
-    isInitialize:boolean
+    error: Nullable<string>
+    isInitialize: boolean
 }
 
 const slice = createSlice({
@@ -29,15 +30,17 @@ const slice = createSlice({
             state.isInitialize = action.payload.value;
         },
         setRequestStatus(state, action: PayloadAction<{ status: RequestStatusType }>) {
+
             state.status = action.payload.status;
         },
-        setErrorText(state, action: PayloadAction<{ error: string | null }>) {
-            state.error  = action.payload.error;
-    },
+        setErrorText(state, action: PayloadAction<{ error: Nullable<string> }>) {
+            state.error = action.payload.error;
+        },
 
-}})
+    }
+})
 
-export const {setRequestStatus,toggleIsInitialize,setErrorText}=slice.actions
+export const {setRequestStatus, toggleIsInitialize, setErrorText} = slice.actions
 export const appReducer = slice.reducer
 
 
@@ -49,16 +52,14 @@ export type AppActionType =
     | ReturnType<typeof setTodolistsAC>
     | ReturnType<typeof setTasksAC>
     | ReturnType<typeof updateTaskAC>
-/*    | setRequestStatusType
-    | setErrorTextType*/
     | ReturnType<typeof addTodolistAC>
     | ReturnType<typeof changeTodolistTitleAC>
     | ReturnType<typeof changeTodolistFilterAC>
     | ReturnType<typeof setTodolistsAC>
     | setTodolistStatusType
-  /*  | ReturnType<typeof setIsLoggedInAC>
-    | ReturnType<typeof setAuthUserData>
-    | ReturnType<typeof toggleIsInitialize>*/
+
+export type setErrorTextType=ReturnType<typeof setErrorText>
+export type setRequestStatusType=ReturnType<typeof setRequestStatus>
 
 export enum ResultCodes {
     success = 0,
