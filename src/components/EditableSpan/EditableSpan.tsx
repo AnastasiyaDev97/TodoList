@@ -1,31 +1,41 @@
-import React, {ChangeEvent, useState} from "react";
-import {TextField} from "@material-ui/core";
+import TextField from "@material-ui/core/TextField/TextField";
+import { ChangeEvent, useState, FC, memo } from "react";
 
 type editableSpanPropsType = {
-    title: string
-    updateTitle: (newTitle: string) => void
-}
-export const EditableSpan = React.memo((props: editableSpanPropsType) => {
-    console.log('editableSpan')
-    let [edit, setEdit] = useState(true)
-    let [title, setTitle] = useState(props.title)
+  title: string;
+  updateTitle: (newTitle: string) => void;
+};
+
+export const EditableSpan: FC<editableSpanPropsType> = memo(
+  ({ title, updateTitle }) => {
+
+    let [edit, setEdit] = useState(true);
+    let [currTitle, setCurrTitle] = useState(title);
 
     const activateInputMode = () => {
-        setEdit(false)
+      setEdit(false);
+    };
 
-    }
     const activateSpanMode = () => {
-        setEdit(true)
-        props.updateTitle(title)
-    }
-    const updateTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
+      setEdit(true);
+      updateTitle(currTitle);
+    };
 
-    }
-    return (
-        edit ?
-            <span onDoubleClick={activateInputMode}>{title}</span>
-            : <TextField id="standard-basic" variant="standard"
-                         value={title} onBlur={activateSpanMode} autoFocus onChange={updateTitleHandler}/>
-    )
-})
+    const updateTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
+      setCurrTitle(e.currentTarget.value);
+    };
+    
+    return edit ? (
+      <span onDoubleClick={activateInputMode}>{title}</span>
+    ) : (
+      <TextField
+        id="standard-basic"
+        variant="standard"
+        value={currTitle}
+        onBlur={activateSpanMode}
+        autoFocus
+        onChange={updateTitleHandler}
+      />
+    );
+  }
+);

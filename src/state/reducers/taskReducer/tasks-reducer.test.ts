@@ -1,7 +1,7 @@
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from './tasks-reducer';
+/* import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from 'tasks-reducer';
 
-import {addTodolistAC} from "./todolist-reducer";
-import {tasksType} from "../../AppWithRedux";
+import {addTodolistAC} from "../todolistReducer/todolist-reducer";
+
 
 let startState: tasksType
 beforeEach(() => {
@@ -77,4 +77,4 @@ test('new array should be added when new todolist is added', () => {
 
     expect(keys.length).toBe(3);
     expect(endState[newKey]).toEqual([]);
-});
+}); */

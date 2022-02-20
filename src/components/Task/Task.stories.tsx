@@ -1,14 +1,13 @@
-/*import React from 'react';
 import {ComponentStory, ComponentMeta} from '@storybook/react';
 import {Task} from "./Task";
-import {action} from "@storybook/addon-actions";*/
+import {action} from "@storybook/addon-actions";
 
-/*export default {
+export default {
     title: 'Todo/Task',
     component: Task,
 } as ComponentMeta<typeof Task>;
 
-const baseArgs = {
+/* const baseArgs = {
     deleteTask: action('task was deleted'),
     changeTaskStatus: action('task status was changed'),
     updateTaskTitle: action('task title was changed')
@@ -22,8 +21,4 @@ TaskStory.args = {
     taskTitle: 'css',
     isDone: true,
     todolistId: 'todo1'
-};*/
-
-
-
-
+}; */

@@ -1,40 +1,72 @@
-import React, {ChangeEvent, useCallback} from "react";
-import s from "../../Todolist.module.css";
-import {Checkbox, IconButton} from "@material-ui/core";
-import {Delete} from "@material-ui/icons";
-import {EditableSpan} from "../EditableSpan/EditableSpan";
-import {TaskStatuses} from "../../api/tasks-api";
+import { ChangeEvent, useCallback, FC, memo } from "react";
+import style from "./Task.module.css";
+import { Checkbox, IconButton } from "@material-ui/core";
+import { Delete } from "@material-ui/icons";
+import { EditableSpan } from "../EditableSpan/EditableSpan";
+import { TaskStatuses } from "../../enum/index";
+import { EMPTY_STRING } from "../../constants";
+import {
+  deleteTaskTC,
+  updateTaskTC,
+} from "../../state/reducers/taskReducer/thunk";
+import { useDispatch } from "react-redux";
+import { getCurrentDate } from "../../utils/handlers";
 
 type TaskPropsType = {
-    taskId: string
-    todolistId: string
-    status: TaskStatuses
-    taskTitle: string
-    deleteTask: (todolistId: string, taskId: string) => any
-    changeTaskStatus: (taskId: string, status: TaskStatuses, todolistId: string) => any
-    updateTaskTitle: (todolistId: string, taskId: string, title: string) => any
-}
-export const Task = React.memo((props: TaskPropsType) => {
-    const deleteTaskHandler = useCallback(() => {
-        props.deleteTask(props.todolistId, props.taskId)
-    }, [props.deleteTask, props.todolistId, props.taskId])
-    const changeTaskStatusHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        let newIsDoneValue = e.currentTarget.checked;
-        props.changeTaskStatus(props.taskId, newIsDoneValue?TaskStatuses.Completed:TaskStatuses.New, props.todolistId)
-    }, [props.changeTaskStatus, props.taskId, props.todolistId])
+  taskId: string;
+  todolistId: string;
+  status: TaskStatuses;
+  taskTitle: string;
+};
 
-    const updateTaskTitleHandler = useCallback((newTitle: string) => {
-        props.updateTaskTitle(props.todolistId, props.taskId, newTitle)
-    }, [props.updateTaskTitle, props.todolistId, props.taskId])
+export const Task: FC<TaskPropsType> = memo(
+  ({ taskId, todolistId, status, taskTitle }) => {
+    console.log(getCurrentDate);
+
+    const dispatch = useDispatch();
+
+    const { Completed, New } = TaskStatuses;
+
+    const onDeleteTaskButton = () => {
+      dispatch(deleteTaskTC(todolistId, taskId));
+    };
+
+    const handleUpdateTaskTitleSpan = useCallback(
+      (newTitle: string) => {
+        dispatch(updateTaskTC(todolistId, taskId, { title: newTitle }));
+      },
+      [dispatch, todolistId, taskId]
+    );
+
+    const onChangeTaskStatusBox = (e: ChangeEvent<HTMLInputElement>) => {
+      let newIsDoneValue = e.currentTarget.checked;
+      dispatch(
+        updateTaskTC(todolistId, taskId, {
+          status: newIsDoneValue ? Completed : New,
+        })
+      );
+    };
 
     return (
-        <li className={props.status===TaskStatuses.Completed ? s.completedTask : ''}>
-            <IconButton aria-label="delete" size="small" onClick={deleteTaskHandler}>
-                <Delete fontSize="small"/>
-            </IconButton>
-            <Checkbox checked={props.status===TaskStatuses.Completed} onChange={changeTaskStatusHandler}
-                      color={"secondary"} size="small"/>
-            <EditableSpan title={props.taskTitle} updateTitle={updateTaskTitleHandler}/>
-        </li>
-    )
-})
+      <li className={status === Completed ? style.completedTask : EMPTY_STRING}>
+        <IconButton
+          aria-label="delete"
+          size="small"
+          onClick={onDeleteTaskButton}
+        >
+          <Delete fontSize="small" />
+        </IconButton>
+        <Checkbox
+          checked={status === Completed}
+          onChange={onChangeTaskStatusBox}
+          color={"secondary"}
+          size="small"
+        />
+        <EditableSpan
+          title={taskTitle}
+          updateTitle={handleUpdateTaskTitleSpan}
+        />
+      </li>
+    );
+  }
+);

@@ -1,9 +1,10 @@
 import {combineReducers, createStore} from "redux";
-import React from 'react';
-import {tasksReducer} from "../state/reducers/tasks-reducer";
+
 
 import {Provider} from "react-redux";
-import {todolistsReducer} from "../state/reducers/todolist-reducer";
+import {todolistsReducer} from "../state/reducers/todolistReducer/todolist-reducer";
+import { tasksReducer } from "../state/reducers/taskReducer/tasks-reducer";
+import { ReactNode } from "react";
 const rootReducerStory=combineReducers({
     tasks:tasksReducer,
     todolists:todolistsReducer
@@ -27,7 +28,7 @@ const rootReducerStory=combineReducers({
 export const storeStory=createStore(rootReducerStory/*,initialStoryState as RootReducerType*/)
 export type RootReducerType=ReturnType<typeof rootReducerStory>
 
-export const ReduxStoreProviderDecorator=(storyFn:()=>React.ReactNode)=>{
+export const ReduxStoreProviderDecorator=(storyFn:()=>ReactNode)=>{
     return <Provider
         store={storeStory}>{storyFn()}
     </Provider>
