@@ -29,8 +29,8 @@ export const Login = () => {
 
   const formik = useFormik({
     initialValues: {
-      email: EMPTY_STRING,
-      password: EMPTY_STRING,
+      email:  process.env.REACT_APP_LOGIN as string ,
+      password:  process.env.REACT_APP_PASSWORD as string ,
       rememberMe: false,
     },
     validate: (values) => {
@@ -47,8 +47,8 @@ export const Login = () => {
   const { touched } = formik;
   const { password, email } = formik.errors;
   const textFields = [
-    { name: "email", err: email, touch: touched.email },
-    { name: "password", err: password, touch: touched.password },
+    { name: "email", err: email, touch: touched.email,type:'text'},
+    { name: "password", err: password, touch: touched.password,type:'password' },
   ];
 
   if (isLoggedIn) {
@@ -70,14 +70,15 @@ export const Login = () => {
               <p>Email: free@samuraijs.com</p>
               <p>Password: free</p>
             </FormLabel>
-            
+
             <FormGroup>
-              {textFields.map(({ name, touch, err }) => (
+              {textFields.map(({ name, touch, err,type }) => (
                 <>
                   <TextField
                     key={name}
                     label={name}
                     margin="normal"
+                    type={type}
                     {...formik.getFieldProps({ name })}
                   />
                   {touch && err && <div style={{ color: "red" }}>{err}</div>}
