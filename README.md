@@ -1,47 +1,58 @@
-## Link https://nastyaz23.github.io/TodoList/
+# TodoList
+
+<a href="https://nastyaz23.github.io/TodoList/">
+  <div>
+   <img align="left" alt="Todo" width="22px" src="https://i.ya-webdesign.com/images/internet-transparent-globe-8.png" />
+   <h3><a href="https://nastyaz23.github.io/TodoList/">Link to app </a></h3>
+  </div>
+</a>
+
+Todolist
+<br/>
+<br/>
+Application for creating, updating, deleting lists. This project is notable for the evolution of the data storages used. 
+<br/>
+At the first stage, the <b>useState hook</b> was used to store data. 
+<br/>
+At the second stage, a bunch of hooks <b>useSelector, useReduce</b> was used. 
+<br/>
+The final option is the connection of the <b>redax</b>. 
+<br/>
+All lists are stored on the server, all CRUD operations are used.
 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Video-Gif720p](./src/assets/image/todo.gif)
 
-## Available Scripts
+<br/>
+<br/>
 
-In the project directory, you can run:
+On the main page you can create edit, delete list. There is a filtering by the degree of completion. Connected error snacbar from material UI,storybook. Redbusers covered in tests Jest.
 
-### `yarn start`
+<br/>
+<br/>
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<img width="850" alt="Todo" src="./src/assets/image/todol.png">
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+<br/>
+<br/>
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Launch of the project ⏯
 
-### `yarn build`
+<br/>
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To start the project, you need to enter the folder - 📂 fridayProject and type the command in the terminal:
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```javascript
+yarn
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<br/>
 
-### `yarn eject`
+Type command in terminal:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```javascript
+yarn start
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+<br/>
