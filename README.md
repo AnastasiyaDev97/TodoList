@@ -16,7 +16,7 @@ At the first stage, the <b>useState hook</b> was used to store data.
 <br/>
 At the second stage, a bunch of hooks <b>useSelector, useReduce</b> was used. 
 <br/>
-The final option is the connection of the <b>redax</b>. 
+The final option is the connection of the <b>redux</b>. 
 <br/>
 All lists are stored on the server, all CRUD operations are used.
 
