@@ -41,7 +41,7 @@ On the main page you can create edit, delete list. There is a filtering by the d
 
 <br/>
 
-To start the project, you need to enter the folder - 📂 fridayProject and type the command in the terminal:
+To start the project, you need to type the command in the terminal:
 
 ```javascript
 yarn
