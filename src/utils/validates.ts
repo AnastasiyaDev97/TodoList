@@ -11,7 +11,7 @@ export const validates = (
   if (!password) {
     errors.password = "Required";
   }
-  if (password.length < 3) {
+  if (password?.length < 3) {
     errors.password = "Min password length is 3 symbols";
   }
 };

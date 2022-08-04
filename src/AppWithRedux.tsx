@@ -1,5 +1,5 @@
-import { useCallback, useEffect } from "react";
-import { Path, RequestStatusType } from "./enum/index";
+import { useCallback, useEffect } from 'react';
+import { Path, RequestStatusType } from './enum/index';
 
 import {
   AppBar,
@@ -9,27 +9,30 @@ import {
   LinearProgress,
   Toolbar,
   Typography,
-} from "@material-ui/core";
-import style from "./App.module.css";
+} from '@material-ui/core';
+import style from './App.module.css';
 
-import { useDispatch, useSelector } from "react-redux";
-import { RootReducerType } from "./state/store";
+import { useDispatch, useSelector } from 'react-redux';
+import { RootReducerType } from './state/store';
 
-import ErrorSnackbar from "./components/Snackbar/Snackbar";
-import { Login } from "./components/Login/Login";
-import { Navigate, Route, Routes } from "react-router-dom";
-import { authUserTC, logoutTC } from "./state/reducers/auth-reducer";
-import { TodolistList } from "./components/TodolistList/TodolistList";
+import ErrorSnackbar from './components/Snackbar/Snackbar';
+import { Login } from './components/Login/Login';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { authUserTC, logoutTC } from './state/reducers/auth-reducer';
+import { TodolistList } from './components/TodolistList/TodolistList';
 
 function AppWithRedux() {
   const dispatch = useDispatch();
 
   const status = useSelector<RootReducerType, RequestStatusType>(
-    (state) => state.app.status);
+    (state) => state.app.status
+  );
   const isInitialize = useSelector<RootReducerType, boolean>(
-    (state) => state.app.isInitialize);
+    (state) => state.app.isInitialize
+  );
   const isLoggedIn = useSelector<RootReducerType, boolean>(
-    (state) => state.auth.isLoggedIn );
+    (state) => state.auth.isLoggedIn
+  );
 
   const { Loading } = RequestStatusType;
   const { START, LOGIN_PATH, NOT_FOUND, ANY } = Path;
@@ -49,7 +52,7 @@ function AppWithRedux() {
     <div>
       <AppBar
         position="static"
-        style={{ background: "SkyBlue" }}
+        style={{ background: 'SkyBlue' }}
         className={style.appbar}
       >
         <Toolbar variant="dense" className={style.header}>
@@ -57,8 +60,8 @@ function AppWithRedux() {
           {isLoggedIn && (
             <Button
               onClick={logoutHandler}
-              color={"inherit"}
-              style={{ float: "right" }}
+              color={'inherit'}
+              style={{ float: 'right' }}
             >
               log out
             </Button>
@@ -69,10 +72,10 @@ function AppWithRedux() {
       {!isInitialize ? (
         <div
           style={{
-            position: "fixed",
-            top: "30%",
-            textAlign: "center",
-            width: "100%",
+            position: 'fixed',
+            top: '30%',
+            textAlign: 'center',
+            width: '100%',
           }}
         >
           <CircularProgress />

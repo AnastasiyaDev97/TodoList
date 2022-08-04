@@ -20,7 +20,7 @@ const initialState = {
 };
 
 const slice = createSlice({
-  name: "app",
+  name: "auth",
   initialState: initialState,
   reducers: {
     setIsLoggedInAC(state, action: PayloadAction<{ value: boolean }>) {

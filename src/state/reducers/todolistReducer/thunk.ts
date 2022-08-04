@@ -1,17 +1,17 @@
-import { catchErrorHandler, errorHandler } from "../../../utils/error-utils";
-import { RequestStatusType, ResultCodes } from "../../../enum";
-import { Dispatch } from "redux";
-import { todolistAPI } from "../../../api/todolist-api";
-import { setRequestStatus } from "../app-reducer";
+import { catchErrorHandler, errorHandler } from '../../../utils/error-utils';
+import { RequestStatusType, ResultCodes } from '../../../enum';
+import { Dispatch } from 'redux';
+import { todolistAPI } from '../../../api/todolist-api';
+import { setRequestStatus } from '../app-reducer';
 import {
   addTodolistAC,
   changeTodolistTitleAC,
   removeTodolistAC,
   setTodolistProgressStatus,
   setTodolistsAC,
-} from "./todolist-reducer";
-import { getTasksTC } from "../taskReducer/thunk";
-import { ThunkType } from "../../store";
+} from './todolist-reducer';
+import { getTasksTC } from '../taskReducer/thunk';
+import { ThunkType } from '../../store';
 
 const { Loading, Succeeded, Failed } = RequestStatusType;
 const { success } = ResultCodes;
@@ -32,15 +32,21 @@ export const removeTodoTC =
   (todolistId: string) => async (dispatch: Dispatch) => {
     try {
       dispatch(setRequestStatus({ status: Loading }));
-      dispatch(setTodolistProgressStatus({ entityStatus: Loading, todolistId }));
+      dispatch(
+        setTodolistProgressStatus({ entityStatus: Loading, todolistId })
+      );
       let data = await todolistAPI.DeleteTodolist(todolistId);
       if (data.resultCode === success) {
         dispatch(removeTodolistAC({ id: todolistId }));
-        dispatch(setTodolistProgressStatus({ entityStatus: Succeeded, todolistId }));
+        dispatch(
+          setTodolistProgressStatus({ entityStatus: Succeeded, todolistId })
+        );
         dispatch(setRequestStatus({ status: Succeeded }));
       } else {
         errorHandler(dispatch, data);
-        dispatch(setTodolistProgressStatus({ entityStatus: Failed, todolistId }));
+        dispatch(
+          setTodolistProgressStatus({ entityStatus: Failed, todolistId })
+        );
       }
     } catch (err) {
       catchErrorHandler(dispatch, err);
@@ -69,7 +75,7 @@ export const updateTodoTitleTC =
       const data = await todolistAPI.UpdateTodolistTitle(todolistId, title);
 
       if (data.resultCode === success) {
-        dispatch(changeTodolistTitleAC());
+        dispatch(changeTodolistTitleAC({ id: todolistId, title }));
         dispatch(setRequestStatus({ status: Succeeded }));
       } else {
         errorHandler(dispatch, data);

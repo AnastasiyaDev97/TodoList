@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TodolistResponseType } from "../../../api/types";
-import { FilterValue, RequestStatusType } from "../../../enum";
-import { todolistStateType } from "./types";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { TodolistResponseType } from '../../../api/types';
+import { FilterValue, RequestStatusType } from '../../../enum';
+import { todolistStateType } from './types';
 
 const { Idle } = RequestStatusType;
 const { All } = FilterValue;
@@ -9,10 +9,9 @@ const { All } = FilterValue;
 let initialState: todolistStateType = [];
 
 const slice = createSlice({
-  name: "tasks",
+  name: 'todolists',
   initialState: initialState,
   reducers: {
-
     removeTodolistAC(state, action: PayloadAction<{ id: string }>) {
       let index = state.findIndex(({ id }) => id === action.payload.id);
       if (index !== -1) {
@@ -31,8 +30,12 @@ const slice = createSlice({
       });
     },
 
-    changeTodolistTitleAC(state) {
-      return state;
+    changeTodolistTitleAC(
+      state,
+      action: PayloadAction<{ id: string; title: string }>
+    ) {
+      let index = state.findIndex(({ id }) => id === action.payload.id);
+      state[index].title = action.payload.title;
     },
 
     changeTodolistFilterAC(
@@ -53,7 +56,7 @@ const slice = createSlice({
         entityStatus: Idle,
       }));
     },
-    
+
     setTodolistProgressStatus(
       state,
       action: PayloadAction<{
@@ -78,4 +81,5 @@ export const {
   setTodolistsAC,
   setTodolistProgressStatus,
 } = slice.actions;
+
 export const todolistsReducer = slice.reducer;
