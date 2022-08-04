@@ -28,4 +28,5 @@ export const store = configureStore({
     getDefaultMiddleware().prepend(thunk),
 });
 /*export let store = createStore(rootReducer, applyMiddleware(thunk));*/
-export type RootReducerType = ReturnType<typeof rootReducer>;
+export type ReducerType= typeof rootReducer
+export type RootReducerType = ReturnType<ReducerType>;

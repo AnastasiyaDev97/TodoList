@@ -97,7 +97,7 @@ export const Todolist: FC<TodolistPropsType> = memo(
         </h3>
         <AddItemForm addItem={handleAddTaskForm} />
         <ul>
-          {filteredTasks.map(({ id, status, title }) => {
+          {filteredTasks?.map(({ id, status, title }) => {
             return (
               <Task
                 key={id}
