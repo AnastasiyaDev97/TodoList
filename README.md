@@ -2,7 +2,6 @@
 
 <a href="https://nastyaz23.github.io/TodoList/">
   <div>
-   <img align="left" alt="Todo" width="22px" src="https://i.ya-webdesign.com/images/internet-transparent-globe-8.png" />
    <h3><a href="https://nastyaz23.github.io/TodoList/">Link to app </a></h3>
   </div>
 </a>
