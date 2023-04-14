@@ -110,7 +110,7 @@ export const Todolist: FC<TodolistPropsType> = memo(
         </ul>
         <div>
           {buttonsArr.map(({ callback, name }) => (
-            <UniversalButton title={name} callback={callback} />
+            <UniversalButton key={name} title={name} callback={callback} />
           ))}
         </div>
       </div>

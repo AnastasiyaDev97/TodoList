@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Grid from "@material-ui/core/Grid/Grid";
 
 import {
@@ -60,13 +61,13 @@ export const Login = () => {
     return <Navigate to={START} />;
   }
   return (
-    <Grid container justifyContent={"center"}>
-      <Grid item justifyContent={"center"}>
+    <Grid container justifyContent="center">
+      <Grid item>
         <form onSubmit={formik.handleSubmit}>
           <FormControl>
             <FormLabel>
               <p>
-                To log in get registered
+                To log in get registered{" "}
                 <a href={LINK_TO_REGISTER} rel="noreferrer" target={"_blank"}>
                   here
                 </a>
@@ -78,16 +79,15 @@ export const Login = () => {
 
             <FormGroup>
               {textFields.map(({ name, touch, err, type }) => (
-                <>
+                <Fragment key={name}>
                   <TextField
-                    key={name}
                     label={name}
                     margin="normal"
                     type={type}
                     {...formik.getFieldProps({ name })}
                   />
                   {touch && err && <div style={{ color: "red" }}>{err}</div>}
-                </>
+                </Fragment>
               ))}
 
               <FormControlLabel
