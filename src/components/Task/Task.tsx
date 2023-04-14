@@ -2,15 +2,14 @@ import { ChangeEvent, useCallback, FC, memo } from "react";
 import style from "./Task.module.css";
 import { Checkbox, IconButton } from "@material-ui/core";
 import { Delete } from "@material-ui/icons";
-import { EditableSpan } from "../EditableSpan/EditableSpan";
-import { TaskStatuses } from "../../enum/index";
-import { EMPTY_STRING } from "../../constants";
-import {
-  deleteTaskTC,
-  updateTaskTC,
-} from "../../state/reducers/taskReducer/thunk";
+
+import { TaskStatuses } from "enums/index";
+
+import { deleteTaskTC, updateTaskTC } from "state/reducers/taskReducer/thunk";
 import { useDispatch } from "react-redux";
-import { getCurrentDate } from "../../utils/handlers";
+
+import { EditableSpan } from "components/EditableSpan/EditableSpan";
+import { EMPTY_STRING } from "constants/index";
 
 type TaskPropsType = {
   taskId: string;
@@ -21,8 +20,6 @@ type TaskPropsType = {
 
 export const Task: FC<TaskPropsType> = memo(
   ({ taskId, todolistId, status, taskTitle }) => {
-    console.log(getCurrentDate);
-
     const dispatch = useDispatch();
 
     const { Completed, New } = TaskStatuses;
@@ -59,7 +56,7 @@ export const Task: FC<TaskPropsType> = memo(
         <Checkbox
           checked={status === Completed}
           onChange={onChangeTaskStatusBox}
-          color={"secondary"}
+          color="secondary"
           size="small"
         />
         <EditableSpan

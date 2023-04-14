@@ -1,6 +1,6 @@
-import { Nullable } from "../../../type/Nullable";
-import { TaskPriorities, TaskStatuses } from "../../../enum/index";
-import { TaskResponseType } from "../../../api/types";
+import { Nullable } from "type/Nullable";
+import { TaskPriorities, TaskStatuses } from "enums";
+import { TaskResponseType } from "api/types";
 
 export type updateElemInTaskType = {
   title?: string;

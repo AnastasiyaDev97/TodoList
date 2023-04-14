@@ -1,20 +1,16 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   addTodolistAC,
   removeTodolistAC,
   setTodolistsAC,
-} from '../todolistReducer/todolist-reducer';
-import { TaskResponseType } from '../../../api/types';
-import { tasksType } from './types';
+} from "../todolistReducer/todolist-reducer";
+import { TaskResponseType } from "api/types";
+import { tasksType } from "./types";
 
-let initialState: tasksType = {
-  /* 'todoid1':[{id:string,title:string,description:null,todoListId:string, order:number,status:null|number
-    priority:number,startDate:null,deadline:null],
-    */
-};
+let initialState: tasksType = {};
 
 const slice = createSlice({
-  name: 'tasks',
+  name: "tasks",
   initialState: initialState,
   reducers: {
     removeTaskAC(state, action: PayloadAction<{ taskId: string; id: string }>) {

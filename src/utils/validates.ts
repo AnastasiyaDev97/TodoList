@@ -21,6 +21,7 @@ export type FormikErrorType = {
   password?: string;
   rememberMe?: boolean;
 };
+
 type FormikValuesType = {
   email: string;
   password: string;

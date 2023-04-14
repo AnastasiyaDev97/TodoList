@@ -1,12 +1,9 @@
-import { setErrorText, setRequestStatus } from "../state/reducers/app-reducer";
+import { setErrorText, setRequestStatus } from "state/reducers/app-reducer";
 import { Dispatch } from "redux";
-import { ResponseT } from "../api/types";
-import { RequestStatusType } from "./../enum";
-import {
-  setErrorTextType,
-  setRequestStatusType,
-} from "../state/reducers/types";
-import { FIRST_INDEX, SOME_ERROR } from "../constants";
+import { ResponseT } from "api/types";
+import { RequestStatusType } from "enums";
+import { setErrorTextType, setRequestStatusType } from "state/reducers/types";
+import { FIRST_INDEX, SOME_ERROR } from "constants/index";
 
 const { Failed } = RequestStatusType;
 

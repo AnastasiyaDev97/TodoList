@@ -1,5 +1,5 @@
-import { useCallback, useEffect } from 'react';
-import { Path, RequestStatusType } from './enum/index';
+import { useCallback, useEffect } from "react";
+import { Path, RequestStatusType } from "./enums/index";
 
 import {
   AppBar,
@@ -9,17 +9,17 @@ import {
   LinearProgress,
   Toolbar,
   Typography,
-} from '@material-ui/core';
-import style from './App.module.css';
+} from "@material-ui/core";
+import style from "./App.module.css";
 
-import { useDispatch, useSelector } from 'react-redux';
-import { RootReducerType } from './state/store';
+import { useDispatch, useSelector } from "react-redux";
+import { RootReducerType } from "./state/store";
 
-import ErrorSnackbar from './components/Snackbar/Snackbar';
-import { Login } from './components/Login/Login';
-import { Navigate, Route, Routes } from 'react-router-dom';
-import { authUserTC, logoutTC } from './state/reducers/auth-reducer';
-import { TodolistList } from './components/TodolistList/TodolistList';
+import ErrorSnackbar from "./components/Snackbar/Snackbar";
+import { Login } from "./components/Login/Login";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { authUserTC, logoutTC } from "./state/reducers/auth-reducer";
+import { TodolistList } from "./components/TodolistList/TodolistList";
 
 function AppWithRedux() {
   const dispatch = useDispatch();
@@ -39,7 +39,7 @@ function AppWithRedux() {
 
   useEffect(() => {
     dispatch(authUserTC());
-  }, []);
+  }, [dispatch]);
 
   const logoutHandler = useCallback(
     function () {
@@ -52,7 +52,7 @@ function AppWithRedux() {
     <div>
       <AppBar
         position="static"
-        style={{ background: 'SkyBlue' }}
+        style={{ background: "SkyBlue" }}
         className={style.appbar}
       >
         <Toolbar variant="dense" className={style.header}>
@@ -60,8 +60,8 @@ function AppWithRedux() {
           {isLoggedIn && (
             <Button
               onClick={logoutHandler}
-              color={'inherit'}
-              style={{ float: 'right' }}
+              color={"inherit"}
+              style={{ float: "right" }}
             >
               log out
             </Button>
@@ -72,10 +72,10 @@ function AppWithRedux() {
       {!isInitialize ? (
         <div
           style={{
-            position: 'fixed',
-            top: '30%',
-            textAlign: 'center',
-            width: '100%',
+            position: "fixed",
+            top: "30%",
+            textAlign: "center",
+            width: "100%",
           }}
         >
           <CircularProgress />
@@ -85,7 +85,7 @@ function AppWithRedux() {
           <Routes>
             <Route path={START} element={<TodolistList />} />
             <Route path={LOGIN_PATH} element={<Login />} />
-            <Route path={ANY} element={<Navigate to={ANY} />} />
+            <Route path={ANY} element={<Navigate to={NOT_FOUND} />} />
             <Route path={NOT_FOUND} element={<h1>PAGE_NOT_FOUND_TEXT</h1>} />
           </Routes>
         </Container>

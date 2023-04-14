@@ -3,18 +3,17 @@ import { useDispatch } from "react-redux";
 import {
   removeTodoTC,
   updateTodoTitleTC,
-} from "../../state/reducers/todolistReducer/thunk";
-import { changeTodolistFilterAC } from "../../state/reducers/todolistReducer/todolist-reducer";
-import { addTaskTC } from "../../state/reducers/taskReducer/thunk";
+} from "state/reducers/todolistReducer/thunk";
+import { changeTodolistFilterAC } from "state/reducers/todolistReducer/todolist-reducer";
+import { addTaskTC } from "state/reducers/taskReducer/thunk";
 import { EditableSpan } from "../EditableSpan/EditableSpan";
 import { Task } from "../Task/Task";
 import { AddItemForm } from "../AddItemForm/AddItemForm";
-import { RequestStatusType, FilterValue, TaskStatuses } from "../../enum/index";
-import { TaskResponseType } from "../../api/types";
+import { RequestStatusType, FilterValue, TaskStatuses } from "enums";
+import { TaskResponseType } from "api/types";
 import IconButton from "@material-ui/core/IconButton/IconButton";
 import { Delete } from "@material-ui/icons";
 import { UniversalButton } from "../Button/Button";
-
 
 type TodolistPropsType = {
   todolistTitle: string;
@@ -111,9 +110,7 @@ export const Todolist: FC<TodolistPropsType> = memo(
         </ul>
         <div>
           {buttonsArr.map(({ callback, name }) => (
-            <UniversalButton title={name}
-              callback={callback}
-            />
+            <UniversalButton title={name} callback={callback} />
           ))}
         </div>
       </div>

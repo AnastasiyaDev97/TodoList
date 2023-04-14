@@ -10,13 +10,13 @@ import {
   TextField,
 } from "@material-ui/core";
 import { useFormik } from "formik";
-import { loginTC } from "../../state/reducers/auth-reducer";
+import { loginTC } from "state/reducers/auth-reducer";
 import { useDispatch, useSelector } from "react-redux";
-import { RootReducerType } from "../../state/store";
+import { RootReducerType } from "state/store";
 import { Navigate } from "react-router-dom";
-import { Path } from "../../enum";
-import { EMPTY_STRING, LINK_TO_REGISTER } from "../../constants";
-import { validates, FormikErrorType } from "../../utils/validates";
+import { Path } from "enums";
+import { LINK_TO_REGISTER } from "constants/index";
+import { validates, FormikErrorType } from "utils/validates";
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -29,8 +29,8 @@ export const Login = () => {
 
   const formik = useFormik({
     initialValues: {
-      email:  process.env.REACT_APP_LOGIN as string ,
-      password:  process.env.REACT_APP_PASSWORD as string ,
+      email: process.env.REACT_APP_LOGIN as string,
+      password: process.env.REACT_APP_PASSWORD as string,
       rememberMe: false,
     },
     validate: (values) => {
@@ -47,8 +47,13 @@ export const Login = () => {
   const { touched } = formik;
   const { password, email } = formik.errors;
   const textFields = [
-    { name: "email", err: email, touch: touched.email,type:'text'},
-    { name: "password", err: password, touch: touched.password,type:'password' },
+    { name: "email", err: email, touch: touched.email, type: "text" },
+    {
+      name: "password",
+      err: password,
+      touch: touched.password,
+      type: "password",
+    },
   ];
 
   if (isLoggedIn) {
@@ -72,7 +77,7 @@ export const Login = () => {
             </FormLabel>
 
             <FormGroup>
-              {textFields.map(({ name, touch, err,type }) => (
+              {textFields.map(({ name, touch, err, type }) => (
                 <>
                   <TextField
                     key={name}

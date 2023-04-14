@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Nullable } from "../../type/Nullable";
-import { RequestStatusType } from "../../enum/index";
+import { Nullable } from "type/Nullable";
+import { RequestStatusType } from "enums/index";
 
 const { Idle } = RequestStatusType;
 
@@ -26,7 +26,9 @@ const slice = createSlice({
     setRequestStatus(
       state,
       action: PayloadAction<{ status: RequestStatusType }>
-    ) {state.status = action.payload.status;},
+    ) {
+      state.status = action.payload.status;
+    },
 
     setErrorText(state, action: PayloadAction<{ error: Nullable<string> }>) {
       state.error = action.payload.error;

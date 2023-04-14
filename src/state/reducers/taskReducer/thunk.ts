@@ -1,9 +1,9 @@
-import { RequestStatusType, ResultCodes } from "../../../enum/index";
-import { tasksAPI } from "../../../api/tasks-api";
+import { RequestStatusType, ResultCodes } from "enums";
+import { tasksAPI } from "api/tasks-api";
 import { Dispatch } from "redux";
-import { RootReducerType } from "../../store";
+import { RootReducerType } from "state/store";
 import { setRequestStatus } from "../app-reducer";
-import { catchErrorHandler, errorHandler } from "../../../utils/error-utils";
+import { catchErrorHandler, errorHandler } from "utils/error-utils";
 import {
   addTaskAC,
   removeTaskAC,
@@ -11,7 +11,7 @@ import {
   updateTaskAC,
 } from "./tasks-reducer";
 import { updateElemInTaskType } from "./types";
-import { updateTaskType } from "../../../api/types";
+import { updateTaskType } from "api/types";
 
 const { Succeeded, Loading } = RequestStatusType;
 const { success } = ResultCodes;
@@ -62,7 +62,7 @@ export const addTaskTC =
   };
 
 export const updateTaskTC =
-(
+  (
     todolistId: string,
     taskId: string,
     updateElemInTask: updateElemInTaskType

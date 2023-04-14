@@ -1,5 +1,5 @@
-import { TodolistResponseType } from "../../../api/types";
-import { RequestStatusType, FilterValue } from "../../../enum";
+import { TodolistResponseType } from "api/types";
+import { RequestStatusType, FilterValue } from "enums";
 import { setTodolistProgressStatus } from "./todolist-reducer";
 
 export type todolistsDomainType = TodolistResponseType & {

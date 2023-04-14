@@ -1,4 +1,4 @@
-import s from "./Button.module.css";
+import style from "./Button.module.css";
 import { FC, memo } from "react";
 import { Button } from "@material-ui/core";
 
@@ -6,6 +6,7 @@ type ButtonPropsType = {
   callback: () => void;
   title: string;
 };
+
 export const UniversalButton: FC<ButtonPropsType> = memo(
   ({ callback, title }) => {
     return (
@@ -14,7 +15,7 @@ export const UniversalButton: FC<ButtonPropsType> = memo(
         size="small"
         color="primary"
         onClick={callback}
-        className={s.btn}
+        className={style.btn}
       >
         {title}
       </Button>

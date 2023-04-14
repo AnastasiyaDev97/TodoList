@@ -1,15 +1,15 @@
 import s from "./AddItemForm.module.css";
-import { ChangeEvent, KeyboardEvent, useState,FC,memo } from "react";
+import { ChangeEvent, KeyboardEvent, useState, FC, memo } from "react";
 import { IconButton, TextField } from "@material-ui/core";
 import { AddBoxOutlined } from "@material-ui/icons";
-import { EMPTY_STRING } from "../../constants";
-import { Nullable } from "../../type/Nullable";
+import { EMPTY_STRING } from "constants/index";
+import { Nullable } from "type/Nullable";
 
 type addItemFormPropsType = {
   addItem: (title: string) => void;
 };
 
-export const AddItemForm:FC<addItemFormPropsType> = memo(({addItem}) => {
+export const AddItemForm: FC<addItemFormPropsType> = memo(({ addItem }) => {
   let [title, setTitle] = useState<string>(EMPTY_STRING);
   let [error, setError] = useState<Nullable<string>>(null);
 
@@ -19,6 +19,7 @@ export const AddItemForm:FC<addItemFormPropsType> = memo(({addItem}) => {
       setError(null);
     }
   };
+
   const addTaskHandler = () => {
     if (title.trim() !== EMPTY_STRING) {
       addItem(title);
@@ -33,7 +34,7 @@ export const AddItemForm:FC<addItemFormPropsType> = memo(({addItem}) => {
       addTaskHandler();
     }
   };
-  console.log("addItem");
+
   return (
     <div className={s.wrapper}>
       <TextField

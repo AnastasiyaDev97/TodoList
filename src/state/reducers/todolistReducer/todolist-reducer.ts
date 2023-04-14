@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TodolistResponseType } from '../../../api/types';
-import { FilterValue, RequestStatusType } from '../../../enum';
-import { todolistStateType } from './types';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { TodolistResponseType } from "api/types";
+import { FilterValue, RequestStatusType } from "enums";
+import { todolistStateType } from "./types";
 
 const { Idle } = RequestStatusType;
 const { All } = FilterValue;
@@ -9,13 +9,13 @@ const { All } = FilterValue;
 let initialState: todolistStateType = [];
 
 const slice = createSlice({
-  name: 'todolists',
+  name: "todolists",
   initialState: initialState,
   reducers: {
     removeTodolistAC(state, action: PayloadAction<{ id: string }>) {
       let index = state.findIndex(({ id }) => id === action.payload.id);
       if (index !== -1) {
-        state.splice(index, 1); //с какого индекса, сколько эл-ов
+        state.splice(index, 1);
       }
     },
 

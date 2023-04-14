@@ -1,5 +1,5 @@
-import { TaskPriorities, TaskStatuses } from "../enum/index";
-import { Nullable } from "../type/Nullable";
+import { TaskPriorities, TaskStatuses } from "enums/index";
+import { Nullable } from "type/Nullable";
 
 export type GetTasksResponseType = {
   items: Array<TaskResponseType>;

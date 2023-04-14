@@ -1,11 +1,11 @@
 import { Dispatch } from "redux";
 import { setRequestStatus, toggleIsInitialize } from "./app-reducer";
-import { authAPI } from "../../api/todolist-api";
-import { catchErrorHandler, errorHandler } from "../../utils/error-utils";
+import { authAPI } from "api/todolist-api";
+import { catchErrorHandler, errorHandler } from "utils/error-utils";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Nullable } from "../../type/Nullable";
-import { RequestStatusType, ResultCodes } from "../../enum/index";
-import { AuthUserDataType, loginParamsType } from "../../api/types";
+import { Nullable } from "type/Nullable";
+import { RequestStatusType, ResultCodes } from "enums";
+import { AuthUserDataType, loginParamsType } from "api/types";
 
 const { Loading, Succeeded } = RequestStatusType;
 const { success } = ResultCodes;

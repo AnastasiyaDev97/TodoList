@@ -1,17 +1,17 @@
-import { catchErrorHandler, errorHandler } from '../../../utils/error-utils';
-import { RequestStatusType, ResultCodes } from '../../../enum';
-import { Dispatch } from 'redux';
-import { todolistAPI } from '../../../api/todolist-api';
-import { setRequestStatus } from '../app-reducer';
+import { catchErrorHandler, errorHandler } from "utils/error-utils";
+import { RequestStatusType, ResultCodes } from "enums";
+import { Dispatch } from "redux";
+import { todolistAPI } from "api/todolist-api";
+import { setRequestStatus } from "../app-reducer";
 import {
   addTodolistAC,
   changeTodolistTitleAC,
   removeTodolistAC,
   setTodolistProgressStatus,
   setTodolistsAC,
-} from './todolist-reducer';
-import { getTasksTC } from '../taskReducer/thunk';
-import { ThunkType } from '../../store';
+} from "./todolist-reducer";
+import { getTasksTC } from "../taskReducer/thunk";
+import { ThunkType } from "state/store";
 
 const { Loading, Succeeded, Failed } = RequestStatusType;
 const { success } = ResultCodes;

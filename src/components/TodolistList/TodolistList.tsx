@@ -1,24 +1,22 @@
 import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootReducerType } from "../../state/store";
-import { Path } from "../../enum/index";
-import {
-  addTodoTC,
-  setTodosTC,
-} from "../../state/reducers/todolistReducer/thunk";
-import { tasksType } from "../../state/reducers/taskReducer/types";
-import { todolistsDomainType } from "../../state/reducers/todolistReducer/types";
+import { RootReducerType } from "state/store";
+import { Path } from "enums";
+import { addTodoTC, setTodosTC } from "state/reducers/todolistReducer/thunk";
+import { tasksType } from "state/reducers/taskReducer/types";
+import { todolistsDomainType } from "state/reducers/todolistReducer/types";
 import { Grid, Paper } from "@material-ui/core";
 import { AddItemForm } from "../AddItemForm/AddItemForm";
 import { Navigate } from "react-router-dom";
 import { Todolist } from "../Todolist/Todolist";
 
 export const TodolistList = () => {
-
   const isLoggedIn = useSelector<RootReducerType, boolean>(
-    (state) => state.auth.isLoggedIn);
+    (state) => state.auth.isLoggedIn
+  );
   const todolists = useSelector<RootReducerType, Array<todolistsDomainType>>(
-    (state) => state.todolists);
+    (state) => state.todolists
+  );
   const tasks = useSelector<RootReducerType, tasksType>((state) => state.tasks);
 
   const dispatch = useDispatch();
@@ -29,8 +27,10 @@ export const TodolistList = () => {
     if (!isLoggedIn) {
       return;
     }
-    dispatch(setTodosTC());
-  }, []);
+    if (!todolists) {
+      dispatch(setTodosTC());
+    }
+  }, [dispatch, todolists, isLoggedIn]);
 
   const addTodolist = useCallback(
     (todolistTitle: string) => {
@@ -53,7 +53,6 @@ export const TodolistList = () => {
         {todolists.map(({ id, entityStatus, title, filter }) => {
           let tasksForTodolist = tasks[id];
           return (
-              
             <Grid item key={id}>
               <Paper style={{ padding: "10px" }}>
                 <Todolist
@@ -66,7 +65,6 @@ export const TodolistList = () => {
                 />
               </Paper>
             </Grid>
-
           );
         })}
       </Grid>

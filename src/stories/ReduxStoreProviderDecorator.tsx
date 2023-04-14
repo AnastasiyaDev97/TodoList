@@ -1,18 +1,18 @@
-import { combineReducers } from 'redux';
-import { ReducerType } from '../state/store';
-import { FilterValue, RequestStatusType } from '../enum';
-import { configureStore } from '@reduxjs/toolkit';
-import thunk from 'redux-thunk';
-import { v1 } from 'uuid';
-import { getCurrentDate } from '../utils/handlers';
-import { HashRouter } from 'react-router-dom';
+import { combineReducers } from "redux";
+import { ReducerType } from "../state/store";
+import { FilterValue, RequestStatusType } from "../enums";
+import { configureStore } from "@reduxjs/toolkit";
+import thunk from "redux-thunk";
+import { v1 } from "uuid";
+import { getCurrentDate } from "../utils/handlers";
+import { HashRouter } from "react-router-dom";
 
-import { Provider } from 'react-redux';
-import { todolistsReducer } from '../state/reducers/todolistReducer/todolist-reducer';
-import { tasksReducer } from '../state/reducers/taskReducer/tasks-reducer';
-import { ReactNode } from 'react';
-import { authReducer } from '../state/reducers/auth-reducer';
-import { appReducer } from './../state/reducers/app-reducer';
+import { Provider } from "react-redux";
+import { todolistsReducer } from "../state/reducers/todolistReducer/todolist-reducer";
+import { tasksReducer } from "../state/reducers/taskReducer/tasks-reducer";
+import { ReactNode } from "react";
+import { authReducer } from "../state/reducers/auth-reducer";
+import { appReducer } from "./../state/reducers/app-reducer";
 
 const { All } = FilterValue;
 const { Idle, Succeeded } = RequestStatusType;
@@ -29,7 +29,7 @@ export const initialStoryState = {
   todolists: [
     {
       id: todolistId1,
-      title: 'What to learn',
+      title: "What to learn",
       filter: All,
       addedDate: getCurrentDate,
       order: 1,
@@ -37,7 +37,7 @@ export const initialStoryState = {
     },
     {
       id: todolistId2,
-      title: 'What to buy',
+      title: "What to buy",
       filter: All,
       addedDate: getCurrentDate,
       order: 1,
@@ -47,78 +47,78 @@ export const initialStoryState = {
   tasks: {
     todolistId1: [
       {
-        id: '1',
-        title: 'CSS',
-        description: '',
+        id: "1",
+        title: "CSS",
+        description: "",
         todoListId: todolistId1,
         status: 0,
         priority: 1,
-        startDate: '',
-        deadline: '',
+        startDate: "",
+        deadline: "",
         order: 2,
-        addedDate: '',
+        addedDate: "",
       },
       {
-        id: '2',
-        title: 'JS',
-        description: '',
+        id: "2",
+        title: "JS",
+        description: "",
         todoListId: todolistId1,
         status: 0,
         priority: 1,
-        startDate: '',
-        deadline: '',
+        startDate: "",
+        deadline: "",
         order: 2,
-        addedDate: '',
+        addedDate: "",
       },
       {
-        id: '3',
-        title: 'React',
-        description: '',
+        id: "3",
+        title: "React",
+        description: "",
         todoListId: todolistId1,
         status: 0,
         priority: 1,
-        startDate: '',
-        deadline: '',
+        startDate: "",
+        deadline: "",
         order: 2,
-        addedDate: '',
+        addedDate: "",
       },
     ],
     todolistId2: [
       {
-        id: '1',
-        title: 'bread',
-        description: '',
+        id: "1",
+        title: "bread",
+        description: "",
         todoListId: todolistId2,
         status: 0,
         priority: 1,
-        startDate: '',
-        deadline: '',
+        startDate: "",
+        deadline: "",
         order: 2,
-        addedDate: '',
+        addedDate: "",
       },
       {
-        id: '2',
-        title: 'milk',
-        description: '',
+        id: "2",
+        title: "milk",
+        description: "",
         todoListId: todolistId2,
         status: 0,
         priority: 1,
-        startDate: '',
-        deadline: '',
+        startDate: "",
+        deadline: "",
         order: 2,
-        addedDate: '',
+        addedDate: "",
       },
       {
-        id: '3',
-        title: 'tea',
-        description: '',
+        id: "3",
+        title: "tea",
+        description: "",
         todoListId: todolistId2,
         status: 0,
         priority: 1,
-        startDate: '',
-        deadline: '',
+        startDate: "",
+        deadline: "",
         order: 2,
-        addedDate: '',
+        addedDate: "",
       },
     ],
   },
@@ -126,8 +126,8 @@ export const initialStoryState = {
     isLoggedIn: true,
     data: {
       id: 3,
-      login: 'nastya',
-      email: 'nastyh1233@gmail.com',
+      login: "nastya",
+      email: "nastyh1233@gmail.com",
     },
   },
   app: { isInitialize: true, error: null, status: Succeeded },
@@ -149,4 +149,3 @@ export const HashRouterDecorator = (Story: any) => (
     <Story />
   </HashRouter>
 );
-
