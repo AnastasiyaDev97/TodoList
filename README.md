@@ -1,8 +1,8 @@
 # TodoList
 
-<a href="https://nastyaz23.github.io/TodoList/">
+<a href="https://anastasiyadev97.github.io/TodoList/">
   <div>
-   <h3><a href="https://nastyaz23.github.io/TodoList/">Link to app </a></h3>
+   <h3><a href="https://anastasiyadev97.github.io/TodoList/">Link to app </a></h3>
   </div>
 </a>
 
